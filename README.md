@@ -20,7 +20,7 @@
 El repositorio está organizado en tres carpetas principales:
 
 - [`frontend/`](./frontend): Contiene la interfaz de usuario desarrollada con **Next.js**.
-- [`backend/`](./backend): Contiene la lógica del servidor y la API, desarrollada con **Yesod** (framework Haskell).
+- [`backend/`](./backend): Contiene la lógica del servidor y la API, desarrollada con **IHP** (framework Haskell).
 - [`Models/`](./Models): Define el modelo de base de datos, incluyendo esquemas y estructuras de entidades.
 
 ---
