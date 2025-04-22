@@ -1,6 +1,5 @@
 # QuizFusion
 
-![QuizFusion Logo](https://via.placeholder.com/150?text=QuizFusion)
 
 QuizFusion es una aplicación fullstack para la gestión de preguntas interactivas en tiempo real. Desarrollada como parte del curso de Programación Web, combina tecnologías modernas para ofrecer una experiencia ágil y dinámica en un entorno completamente basado en IHP.
 
