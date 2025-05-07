@@ -1,0 +1,223 @@
+/* Fondo diagonal */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(to bottom right, white 0%, white 55%, #D6D8DE 55%, #D6D8DE 100%);
+    font-family: 'Arial', sans-serif;
+}
+
+/* Barra de navegación */
+.navbar {
+    background-color: transparent;
+    padding: 1.5rem 2rem;
+    position: relative;
+    z-index: 10;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Contenedor para logo + elementos de navegación */
+.navbar-left-group {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    height: 40px;
+    width: auto;
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+    font-size: 1rem;
+    position: relative;
+    white-space: nowrap;
+}
+
+.nav-link:hover {
+    color: #0A84FF;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #0A84FF;
+    transition: width 0.3s;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-button-container {
+    margin-left: auto;
+}
+
+.nav-button {
+    padding: 0.6rem 1.8rem;
+    background-color: #0A84FF;
+    color: white;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    box-shadow: 0 2px 10px rgba(10, 132, 255, 0.3);
+}
+
+.nav-button:hover {
+    background-color: #0066CC;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(10, 132, 255, 0.4);
+}
+
+
+.hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 120px);
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.hero-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.hero-text-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 600px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    color: #333;
+    margin-bottom: 2rem;
+    line-height: 1.2;
+    font-weight: 700;
+    text-align: left;
+}
+
+.hero-image-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: scale(2.5);
+}
+
+
+
+.create-question-button {
+    padding: 1.2rem 3rem;
+    background-color: #0A84FF;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2rem;
+    box-shadow: 0 4px 15px rgba(10, 132, 255, 0.3);
+}
+
+.create-question-button:hover {
+    background-color: #0066CC;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(10, 132, 255, 0.4);
+}
+
+
+.institutional-logos {
+    position: fixed;
+    bottom: 40px;  
+    right: 40px;   
+    display: flex;
+    gap: 30px;     
+    
+    padding: 20px 30px;  
+    border-radius: 12px;  
+    z-index: 10;
+    transform: scale(1.5);
+     
+}
+
+.institutional-logo {
+    height: 50px;  
+    width: auto;
+    transition: all 0.3s ease;
+    padding: 8px;  
+    
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.institutional-logo:hover {
+    transform: scale(1.08);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+    .institutional-logos {
+        bottom: 20px;
+        right: 20px;
+        gap: 20px;
+        padding: 15px 20px;
+    }
+    
+    .institutional-logo {
+        height: 40px;
+        padding: 5px;
+    }
+}
+main {
+    padding-top: 20px;
+}
