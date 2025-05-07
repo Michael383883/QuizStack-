@@ -64,6 +64,87 @@ quizfusion/
 * PostgreSQL (versión 13 o superior)
 * [Haskell Stack](https://docs.haskellstack.org/en/stable/install_and_upgrade/)
 
+### Para Windows
+
+* **Nix Package Manager**:
+  * Instala WSL2 (Windows Subsystem for Linux) siguiendo [la guía oficial de Microsoft](https://learn.microsoft.com/es-es/windows/wsl/install)
+  * Una vez instalado WSL2, abre una terminal de Linux y ejecuta:
+    ```bash
+    sh <(curl -L https://nixos.org/nix/install) --daemon
+    ```
+
+* **PostgreSQL**:
+  * Descarga el instalador desde [la página oficial de PostgreSQL](https://www.postgresql.org/download/windows/)
+  * Instala la versión 13 o superior
+  * Asegúrate de anotar la contraseña del usuario postgres durante la instalación
+
+* **Haskell Stack**:
+  * Descarga el instalador desde [la página oficial de Haskell Stack](https://docs.haskellstack.org/en/stable/install_and_upgrade/#windows)
+  * Sigue las instrucciones de instalación
+
+* **IHP Framework**:
+  * En WSL2, ejecuta:
+    ```bash
+    nix-env -if https://ihp.digitallyinduced.com/ihp-new.tar.gz
+    ```
+
+### Para macOS
+
+* **Nix Package Manager**:
+  * Abre Terminal y ejecuta:
+    ```bash
+    sh <(curl -L https://nixos.org/nix/install)
+    ```
+  * Cierra y vuelve a abrir Terminal después de la instalación
+
+* **PostgreSQL**:
+  * Usando Homebrew (instálalo primero desde [brew.sh](https://brew.sh/)):
+    ```bash
+    brew install postgresql@13
+    brew services start postgresql@13
+    ```
+
+* **Haskell Stack**:
+  * Usando Homebrew:
+    ```bash
+    brew install haskell-stack
+    ```
+
+* **IHP Framework**:
+  * Ejecuta:
+    ```bash
+    nix-env -if https://ihp.digitallyinduced.com/ihp-new.tar.gz
+    ```
+
+### Para Linux (Ubuntu/Debian)
+
+* **Nix Package Manager**:
+  * Ejecuta:
+    ```bash
+    sh <(curl -L https://nixos.org/nix/install) --daemon
+    ```
+
+* **PostgreSQL**:
+  * Instala PostgreSQL:
+    ```bash
+    sudo apt update
+    sudo apt install postgresql postgresql-contrib
+    sudo systemctl enable postgresql
+    sudo systemctl start postgresql
+    ```
+
+* **Haskell Stack**:
+  * Ejecuta:
+    ```bash
+    curl -sSL https://get.haskellstack.org/ | sh
+    ```
+
+* **IHP Framework**:
+  * Ejecuta:
+    ```bash
+    nix-env -if https://ihp.digitallyinduced.com/ihp-new.tar.gz
+
+    
 ## ⚙️ Configuración del entorno
 
 ### Instalación
@@ -74,19 +155,35 @@ quizfusion/
    cd quizfusion
    ```
 
-2. Configuración del proyecto IHP:
+2. Configuración de la base de datos:
+   
+   **Windows (PostgreSQL)**:
+   ```bash
+   # Accede a PostgreSQL como administrador
+   psql -U postgres
+   # Dentro de PostgreSQL, crea un usuario y base de datos
+   CREATE USER quizfusion WITH PASSWORD 'contraseña';
+   CREATE DATABASE quizfusion_db OWNER quizfusion;
+   \q
+   ```
+
+   **macOS/Linux**:
+   ```bash
+   # Accede a PostgreSQL como superusuario
+   sudo -u postgres psql
+   # Dentro de PostgreSQL, crea un usuario y base de datos
+   CREATE USER quizfusion WITH PASSWORD 'contraseña';
+   CREATE DATABASE quizfusion_db OWNER quizfusion;
+   \q
+   ```
+
+3. Configuración del proyecto IHP:
    ```bash
    ./start
    ```
    Este comando iniciará el servidor de desarrollo, configurará la base de datos y abrirá la aplicación en tu navegador predeterminado.
 
-### Configuración de la base de datos
-
-IHP creará automáticamente la base de datos PostgreSQL según el esquema definido en `Application/Schema.sql`. Para acceder directamente a la base de datos:
-
-```bash
-make psql
-```
+4. La aplicación estará disponible en: http://localhost:8000
 
 ## 🌿 Flujo de trabajo Git
 
