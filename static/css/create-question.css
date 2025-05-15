@@ -1,0 +1,348 @@
+/* Estilos para la página de creación de puzzles educativos */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-colors {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.logo-colors::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #FF5A5F, #3498db, #2ecc71);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+    font-size: 1rem;
+}
+
+.dropdown::after {
+    content: '▼';
+    font-size: 0.7rem;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.nav-button-container {
+    margin-left: 20px;
+}
+
+.nav-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+}
+
+/* Main content styles */
+.content-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 0 20px;
+}
+
+.create-puzzle-container {
+    background-color: #ffcccb;
+    border-radius: 15px;
+    max-width: 1100px;
+    width: 100%;
+    margin: 20px 0;
+    padding: 30px;
+    position: relative;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.back-link {
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.back-arrow {
+    font-size: 24px;
+    color: #333;
+}
+
+.page-title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.create-puzzle-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.puzzle-step-container {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.puzzle-image-preview {
+    flex: 0 0 220px;
+    height: 220px;
+    background-color: #dce1e6;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shapes-container {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.shape {
+    background-color: #a9b4c0;
+    position: relative;
+}
+
+.triangle {
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 80px solid #a9b4c0;
+    background-color: transparent;
+    margin-bottom: 20px;
+}
+
+.square {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+
+.puzzle-step-instructions {
+    flex: 1;
+}
+
+.step-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.instructions-label {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.instructions-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+/* Form styles */
+.form-container {
+    background-color: transparent;
+    border: 2px dashed #b066ff;
+    border-radius: 12px;
+    padding: 25px;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.form-label {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.difficulty-slider-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.difficulty-slider {
+    flex: 1;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: linear-gradient(to right, #ff5a5f, #f89406, #ff5a5f);
+    outline: none;
+    border-radius: 3px;
+}
+
+.difficulty-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ff5a5f;
+    cursor: pointer;
+}
+
+.difficulty-slider::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ff5a5f;
+    cursor: pointer;
+}
+
+.difficulty-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0 12px;
+}
+
+.difficulty-min, .difficulty-mid, .difficulty-max {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.next-button {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.next-button:hover {
+    background-color: #5a52d5;
+}
+
+@media (max-width: 768px) {
+    .puzzle-step-container {
+        flex-direction: column;
+    }
+
+    .puzzle-image-preview {
+        margin: 0 auto 20px;
+    }
+
+    .navbar-menu {
+        display: none;
+    }
+}

@@ -33,7 +33,8 @@ instance View HomeView where
                 <div class="hero-content">
                     <div class="hero-text-container">
                         <h1 class="hero-title">Aprender nunca fue tan divertido: ¡resuelve, piensa y arma el conocimiento!</h1>
-                        <button class="create-question-button">CREA UNA PREGUNTA</button>
+                         <a href={pathTo NewCreateQuestionAction} class="create-question-button">CREA UNA PREGUNTA</a>
+
                     </div>
                     <div class="hero-image-container">
                         <img src="/images/imagenfondo.png" alt="Imagen educativa" class="hero-image"/>

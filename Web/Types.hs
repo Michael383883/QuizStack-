@@ -13,3 +13,7 @@ data StaticController
     = WelcomeAction
     | HomeAction -- Añadimos esta línea para nuestra página de inicio
     deriving (Eq, Show, Data)
+
+data CreateQuestionController
+    = NewCreateQuestionAction
+    deriving (Eq, Show, Data)
