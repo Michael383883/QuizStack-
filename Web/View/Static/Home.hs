@@ -14,7 +14,7 @@ instance View HomeView where
                     <div class="navbar-brand">
                         <img src="/images/logoapp.png" alt="QuizZZite" class="logo"
                             onerror="this.onerror=null; this.src='/images/default-logo.png'; this.alt='Logo no encontrado'"/>
-                        <span class="brand-name">QuizZZite</span>
+                    
                     </div>
                     <div class="navbar-menu">
                         <a href="#" class="nav-link">About</a>

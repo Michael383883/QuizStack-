@@ -1,0 +1,360 @@
+/* Reseteo básico y estilos generales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+/* Contenedor principal */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 15px 0;
+}
+
+.navbar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-colors {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+
+.logo-colors::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #FF5A5F, #3498db, #2ecc71);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+.brand-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.navbar-menu {
+    display: flex;
+    gap: 32px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: 500;
+    transition: color 0.3s;
+    font-size: 1rem;
+}
+
+.dropdown::after {
+    content: '▼';
+    font-size: 0.7rem;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.nav-button-container {
+    margin-left: 20px;
+}
+
+.nav-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+    display: inline-block;
+}
+
+.nav-button:hover {
+    background-color: #0056b3;
+}
+
+.content-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    background-color: #ffd5d5; /* Color de fondo rosa claro como en el mockup */
+}
+
+/* Contenedor del puzzle */
+.preview-puzzle-container {
+    width: 100%;
+    max-width: 1200px;
+    background-color: #c3a3a3; /* Color marrón-rosado del mockup */
+    padding: 40px 30px;
+    border-radius: 8px;
+    position: relative;
+    margin: 20px auto;
+}
+
+/* Encabezado de la página */
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.page-title {
+    font-size: 1.8rem;
+    text-align: center;
+    color: #333;
+    flex-grow: 1;
+    font-weight: normal;
+}
+
+.back-link, .next-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #333;
+    width: 40px;
+    height: 40px;
+}
+
+.back-arrow, .next-arrow {
+    font-size: 1.8rem;
+}
+
+/* Contenido principal */
+.preview-puzzle-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Estructura de pestañas de puzzle */
+.puzzle-tabs {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.puzzle-tab {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+.tab-title {
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: normal;
+}
+
+/* Estilos para la pestaña de Puzzle */
+.piece-selector {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.piece-dropdown {
+    padding: 8px 12px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: calc(100% - 8px) center;
+    padding-right: 28px;
+}
+
+.puzzle-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-grow: 1;
+    position: relative;
+}
+
+.puzzle-instructions {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.puzzle-piece-preview {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.piece-image {
+    width: 150px;
+    height: auto;
+}
+
+.puzzle-character {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+}
+
+.puzzle-character img {
+    width: 100%;
+    height: auto;
+}
+
+/* Estilos para la pestaña de Editor de Código */
+.code-editor {
+    flex-grow: 1;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.editor-dots {
+    background-color: #f5f5f5;
+    padding: 6px 10px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    gap: 6px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.dot-green {
+    background-color: #4caf50;
+}
+
+.dot-blue {
+    background-color: #2196f3;
+}
+
+.editor-content {
+    flex-grow: 1;
+    background-color: #fff;
+    padding: 15px;
+    min-height: 300px;
+}
+
+.build-button {
+    background-color: #6352b5; /* Color morado */
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 25px;
+    align-self: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.build-button:hover {
+    background-color: #5545a2;
+}
+
+/* Estilos para la pestaña de Puzzle en Proceso */
+.puzzle-preview {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.map-image {
+    max-width: 100%;
+    max-height: 350px;
+    object-fit: contain;
+}
+
+.finalize-button {
+    background-color: #fff;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 10px 25px;
+    border-radius: 25px;
+    align-self: center;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.finalize-button:hover {
+    background-color: #f5f5f5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .puzzle-tabs {
+        flex-direction: column;
+    }
+    
+    .puzzle-tab {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .preview-puzzle-container {
+        padding: 20px 15px;
+    }
+    
+    .page-title {
+        font-size: 1.5rem;
+    }
+}

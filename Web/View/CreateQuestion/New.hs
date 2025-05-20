@@ -1,6 +1,7 @@
 module Web.View.CreateQuestion.New where
 
 import Web.View.Prelude
+import Web.View.Components.Navigation (renderNavigation)
 
 data NewView = NewView
 
@@ -12,26 +13,7 @@ instance View NewView where
         </head>
         <body>
             <div class="main-container">
-                <nav class="navbar">
-                    <div class="navbar-container">
-                        <div class="navbar-brand">
-                            <a href="/" class="logo-link">
-                                <span class="logo-colors"></span>
-                                <span class="brand-name">QuizzZite</span>
-                            </a>
-                        </div>
-                        <div class="navbar-menu">
-                            <a href="#" class="nav-link">About</a>
-                            <a href="#" class="nav-link">Features</a>
-                            <a href="#" class="nav-link">Pricing</a>
-                            <a href="#" class="nav-link dropdown">Gallery</a>
-                            <a href="#" class="nav-link">Team</a>
-                        </div>
-                        <div class="nav-button-container">
-                            <a href="#" class="nav-button">INICIAR PRUEBA</a>
-                        </div>
-                    </div>
-                </nav>
+                {renderNavigation}
                 
                 <div class="content-container">
                     <div class="create-puzzle-container">
@@ -90,8 +72,9 @@ instance View NewView where
                                 </div>
                                 
                                 <div class="form-actions">
-                                    <button class="next-button">Siguiente</button>
+                                     <a href={pathTo NewCuestiontwoAction} class="next-button">Siguiente</a>
                                 </div>
+
                             </div>
                         </div>
                     </div>

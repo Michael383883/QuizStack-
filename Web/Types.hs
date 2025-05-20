@@ -16,4 +16,7 @@ data StaticController
 
 data CreateQuestionController
     = NewCreateQuestionAction
+    | NewCuestiontwoAction
+    | PreviewquestionAction
+    | PuzzleResolutionAction
     deriving (Eq, Show, Data)
