@@ -4,7 +4,8 @@ import Web.Controller.Prelude
 import Web.View.CreateQuestion.New
 import Web.View.CreateQuestiontwo.NewCuestiontwo
 import Web.View.Previewquestion.Previewquestion
-import Web.View.PuzzleResolution.PuzzleResolution
+import Web.View.PuzzleResolution.Index
+
 
 instance Controller CreateQuestionController where
     action NewCreateQuestionAction = do
@@ -17,7 +18,8 @@ instance Controller CreateQuestionController where
         render PreviewquestionView 
 
     action PuzzleResolutionAction= do
-        render PuzzleResolutionView      
+        render PuzzleResolutionView     
 
+    
 
 

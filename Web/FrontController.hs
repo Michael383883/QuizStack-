@@ -8,6 +8,7 @@ import Web.View.Layout (defaultLayout)
 import Web.Controller.Static
 import Web.Controller.CreateQuestion
 
+
 instance FrontController WebApplication where
     controllers = 
         [  startPage HomeAction

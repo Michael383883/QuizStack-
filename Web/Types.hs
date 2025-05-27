@@ -20,3 +20,30 @@ data CreateQuestionController
     | PreviewquestionAction
     | PuzzleResolutionAction
     deriving (Eq, Show, Data)
+    
+-- Añade esto para el MapP
+
+data PuzzlePiece = PuzzlePiece
+    { pieceId :: Int
+    , pieceName :: Text
+    , pieceColor :: Text
+    , pieceShape :: Text
+    , isPlaced :: Bool
+    } deriving (Show, Eq)
+
+data PuzzleState = PuzzleState
+    { availablePieces :: [PuzzlePiece]
+    , selectedPiece :: Maybe PuzzlePiece
+    , codeInstructions :: [Text]
+    , mapProgress :: Int
+    , isCompleted :: Bool
+    } deriving (Show, Eq)
+
+data PuzzleAction 
+    = SelectPiece Int
+    | MoveToPosition Text
+    | RotatePiece
+    | RepeatAction
+    | BuildPiece
+    | ExecutePuzzle
+    deriving (Show, Eq)
