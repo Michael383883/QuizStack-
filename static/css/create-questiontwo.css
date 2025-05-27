@@ -1,4 +1,3 @@
-
 /* Reseteo básico y estilos generales */
 * {
     margin: 0;
@@ -162,6 +161,39 @@ body {
     font-size: 1.8rem;
 }
 
+/* Indicador de pasos */
+.step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    right: 0;
+}
+
+.step {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9rem;
+    background-color: #e2e2e2;
+    color: #666;
+    transition: all 0.3s ease;
+}
+
+.step.completed {
+    background-color: #6352b5;
+    color: white;
+}
+
+.step.active {
+    background-color: #8a7dbe;
+    color: white;
+}
+
 /* Contenido principal */
 .create-puzzle-content {
     display: flex;
@@ -186,6 +218,16 @@ body {
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.preview-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .shapes-container {
@@ -219,6 +261,13 @@ body {
     border-radius: 50%;
 }
 
+#uploaded-image-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
 /* Instrucciones del paso */
 .puzzle-step-instructions {
     flex-grow: 1;
@@ -240,6 +289,26 @@ body {
 .instructions-text {
     color: #333;
     line-height: 1.5;
+    margin-bottom: 15px;
+}
+
+/* Recordatorio de dificultad */
+.difficulty-reminder {
+    background-color: rgba(255, 255, 255, 0.3);
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+}
+
+.difficulty-label {
+    font-weight: 500;
+    color: #333;
+    margin-right: 8px;
+}
+
+.difficulty-value {
+    font-weight: bold;
+    color: #6352b5;
 }
 
 /* Contenedor del formulario */
@@ -259,6 +328,7 @@ body {
 .form-label {
     font-weight: normal;
     color: #333;
+    margin-bottom: 5px;
 }
 
 .form-input {
@@ -274,6 +344,38 @@ body {
     color: #aaa;
 }
 
+/* Textarea específico para pistas */
+.form-textarea {
+    padding: 12px 15px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+    width: 100%;
+    background-color: white;
+    min-height: 80px;
+    resize: vertical;
+    font-family: inherit;
+    transition: all 0.3s ease;
+}
+
+.form-textarea::placeholder {
+    color: #aaa;
+}
+
+.form-textarea:focus {
+    outline: none;
+    border-color: #6352b5;
+    box-shadow: 0 0 0 2px rgba(99, 82, 181, 0.1);
+}
+
+/* Contador de caracteres */
+.char-counter {
+    text-align: right;
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 5px;
+}
+
 /* Contenedor del toggle de pista */
 .hint-toggle-container {
     display: flex;
@@ -284,6 +386,7 @@ body {
 
 .hint-toggle-label {
     color: #333;
+    font-size: 0.9rem;
 }
 
 /* Estilo para el switch */
@@ -354,10 +457,25 @@ input:checked + .slider:before {
     text-align: center;
     transition: all 0.3s ease;
     background-color: transparent;
+    cursor: pointer;
+    position: relative;
 }
 
 .upload-area:hover {
     border-color: #6352b5;
+    background-color: rgba(99, 82, 181, 0.05);
+}
+
+.upload-area.drag-over {
+    border-color: #6352b5;
+    background-color: rgba(99, 82, 181, 0.1);
+    transform: scale(1.02);
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .upload-icon {
@@ -397,11 +515,114 @@ input:checked + .slider:before {
     background-color: rgba(255, 255, 255, 0.7);
 }
 
+/* Información del archivo subido */
+.uploaded-file-info {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.file-preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+#file-thumbnail {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.file-details {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.file-name {
+    font-weight: 500;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.file-size {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+.remove-file-btn {
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-file-btn:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* Feedback de subida */
+.upload-feedback {
+    margin-top: 10px;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    display: none;
+}
+
+.upload-feedback.error {
+    background-color: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.upload-feedback.success {
+    background-color: #f0fdf4;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
+}
+
 /* Acciones del formulario */
 .form-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 30px;
+}
+
+.back-button {
+    background-color: transparent;
+    color: #666;
+    border: 1px solid #ccc;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: normal;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.back-button:hover {
+    background-color: #f5f5f5;
+    border-color: #999;
 }
 
 .next-button {
@@ -415,9 +636,57 @@ input:checked + .slider:before {
     cursor: pointer;
     transition: background-color 0.3s;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
 }
 
-.next-button:hover {
+.next-button:hover:not(:disabled) {
     background-color: #5545a2;
+}
+
+.next-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-arrow {
+    font-size: 0.9rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .puzzle-step-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .puzzle-image-preview {
+        width: 100%;
+        height: 140px;
+        align-self: center;
+    }
+    
+    .step-indicator {
+        position: static;
+        justify-content: center;
+        margin-top: 15px;
+    }
+    
+    .page-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .back-button,
+    .next-button {
+        width: 100%;
+        justify-content: center;
+    }
 }

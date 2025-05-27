@@ -1,4 +1,8 @@
-/* Reseteo básico y estilos generales */
+/* ========================================
+   RESETEO BÁSICO Y ESTILOS GENERALES
+   ======================================== */
+
+   
 * {
     margin: 0;
     padding: 0;
@@ -7,21 +11,28 @@
 }
 
 body {
-    background-color: #f5f5f5;
+    background-color: #f0f0f0;
 }
 
-/* Contenedor principal */
+/* ========================================
+   CONTENEDOR PRINCIPAL
+   ======================================== */
 .main-container {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-/* Navbar styles */
+/* ========================================
+   NAVBAR STYLES
+   ======================================== */
 .navbar {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .navbar-container {
@@ -81,6 +92,10 @@ body {
     font-size: 1rem;
 }
 
+.nav-link:hover {
+    color: #007bff;
+}
+
 .dropdown::after {
     content: '▼';
     font-size: 0.7rem;
@@ -109,40 +124,50 @@ body {
     background-color: #0056b3;
 }
 
+/* ========================================
+   CONTENEDOR DE CONTENIDO PRINCIPAL
+   ======================================== */
 .content-container {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 20px;
-    background-color: #ffd5d5; /* Color de fondo rosa claro como en el mockup */
+    background: linear-gradient(135deg, #ffd5d5 0%, #ffe0e0 100%);
+    min-height: calc(100vh - 80px);
 }
 
-/* Contenedor del puzzle */
+/* ========================================
+   CONTENEDOR DEL PUZZLE PRINCIPAL
+   ======================================== */
 .preview-puzzle-container {
     width: 100%;
-    max-width: 1200px;
-    background-color: #c3a3a3; /* Color marrón-rosado del mockup */
-    padding: 40px 30px;
-    border-radius: 8px;
+    max-width: 1400px;
+    background: linear-gradient(135deg, #c3a3a3 0%, #d4b4b4 100%);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     position: relative;
-    margin: 20px auto;
+    margin: 0 auto;
 }
 
-/* Encabezado de la página */
+/* ========================================
+   ENCABEZADO DE LA PÁGINA
+   ======================================== */
 .page-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
     position: relative;
 }
 
 .page-title {
-    font-size: 1.8rem;
+    font-size: 2rem;
     text-align: center;
-    color: #333;
+    color: #2c2c2c;
     flex-grow: 1;
-    font-weight: normal;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .back-link, .next-link {
@@ -151,63 +176,108 @@ body {
     justify-content: center;
     text-decoration: none;
     color: #333;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.back-link:hover, .next-link:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.05);
 }
 
 .back-arrow, .next-arrow {
     font-size: 1.8rem;
+    font-weight: bold;
 }
 
-/* Contenido principal */
+/* ========================================
+   CONTENIDO PRINCIPAL DEL PUZZLE
+   ======================================== */
 .preview-puzzle-content {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 25px;
 }
 
-/* Estructura de pestañas de puzzle */
+/* ========================================
+   ESTRUCTURA DE PESTAÑAS (3 COLUMNAS)
+   ======================================== */
 .puzzle-tabs {
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
-    justify-content: space-between;
+    min-height: 600px;
 }
 
 .puzzle-tab {
     background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    flex: 1;
+    padding: 25px;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    min-height: 500px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.puzzle-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .tab-title {
-    font-size: 1.3rem;
-    color: #333;
-    margin-bottom: 15px;
+    font-size: 1.4rem;
+    color: #2c2c2c;
+    margin-bottom: 20px;
     text-align: center;
-    font-weight: normal;
+    font-weight: 600;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e0e0e0;
 }
 
-/* Estilos para la pestaña de Puzzle */
+/* ========================================
+   COLUMNA 1: VISOR DE PIEZAS
+   ======================================== */
+.puzzle-tab:nth-child(1) {
+    border-top: 4px solid #4CAF50;
+}
+
+.puzzle-tab:nth-child(1) .tab-title {
+    color: #4CAF50;
+}
+
 .piece-selector {
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 20px;
+    justify-content: center;
+    margin-bottom: 25px;
 }
 
 .piece-dropdown {
-    padding: 8px 12px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 2px solid #ddd;
     background-color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    min-width: 150px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23666' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: calc(100% - 8px) center;
-    padding-right: 28px;
+    background-position: calc(100% - 12px) center;
+    padding-right: 40px;
+}
+
+.piece-dropdown:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
 }
 
 .puzzle-content {
@@ -219,58 +289,91 @@ body {
 }
 
 .puzzle-instructions {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: center;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+    max-width: 250px;
 }
 
 .puzzle-piece-preview {
     padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    border: 3px dashed #ddd;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    background-color: #fafafa;
+    transition: border-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 180px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.puzzle-piece-preview:hover {
+    border-color: #4CAF50;
 }
 
 .piece-image {
-    width: 150px;
+    width: 120px;
     height: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
 }
 
 .puzzle-character {
     position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 150px;
+    bottom: -10px;
+    right: -10px;
+    width: 120px;
+    z-index: 10;
 }
 
 .puzzle-character img {
     width: 100%;
     height: auto;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
 }
 
-/* Estilos para la pestaña de Editor de Código */
+/* ========================================
+   COLUMNA 2: EDITOR DE CÓDIGO
+   ======================================== */
+.puzzle-tab:nth-child(2) {
+    border-top: 4px solid #2196F3;
+}
+
+.puzzle-tab:nth-child(2) .tab-title {
+    color: #2196F3;
+}
+
 .code-editor {
     flex-grow: 1;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     overflow: hidden;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .editor-dots {
-    background-color: #f5f5f5;
-    padding: 6px 10px;
-    border-bottom: 1px solid #ddd;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 12px 15px;
+    border-bottom: 1px solid #e0e0e0;
     display: flex;
-    gap: 6px;
+    gap: 8px;
+    align-items: center;
 }
 
 .dot {
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
     display: inline-block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dot-green {
@@ -284,77 +387,227 @@ body {
 .editor-content {
     flex-grow: 1;
     background-color: #fff;
-    padding: 15px;
-    min-height: 300px;
+    padding: 20px;
+    min-height: 350px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #333;
+    border: none;
+    resize: none;
+    outline: none;
 }
 
 .build-button {
-    background-color: #6352b5; /* Color morado */
+    background: linear-gradient(135deg, #6352b5 0%, #7b6bc9 100%);
     color: white;
     border: none;
-    padding: 10px 25px;
-    border-radius: 25px;
+    padding: 14px 35px;
+    border-radius: 30px;
     align-self: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(99, 82, 181, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .build-button:hover {
-    background-color: #5545a2;
+    background: linear-gradient(135deg, #5545a2 0%, #6b5bb6 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(99, 82, 181, 0.4);
 }
 
-/* Estilos para la pestaña de Puzzle en Proceso */
+.build-button:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   COLUMNA 3: MAPA EN PROCESO
+   ======================================== */
+.puzzle-tab:nth-child(3) {
+    border-top: 4px solid #FF9800;
+}
+
+.puzzle-tab:nth-child(3) .tab-title {
+    color: #FF9800;
+}
+
 .puzzle-preview {
     flex-grow: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    padding: 20px;
+    margin-bottom: 25px;
+    background: linear-gradient(135deg, #f9f9f9 0%, #f0f0f0 100%);
+    border-radius: 12px;
+    padding: 25px;
+    border: 2px dashed #e0e0e0;
+    position: relative;
+    overflow: hidden;
+}
+
+.puzzle-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="2" cy="2" r="1" fill="%23e0e0e0"/></svg>') repeat;
+    opacity: 0.3;
+    pointer-events: none;
 }
 
 .map-image {
     max-width: 100%;
-    max-height: 350px;
+    max-height: 400px;
     object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
 }
 
 .finalize-button {
     background-color: #fff;
     color: #333;
-    border: 1px solid #ddd;
-    padding: 10px 25px;
-    border-radius: 25px;
+    border: 2px solid #ddd;
+    padding: 14px 35px;
+    border-radius: 30px;
     align-self: center;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .finalize-button:hover {
-    background-color: #f5f5f5;
+    background-color: #f8f9fa;
+    border-color: #bbb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Responsive adjustments */
-@media (max-width: 992px) {
+.finalize-button:active {
+    transform: translateY(0);
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+@media (max-width: 1200px) {
     .puzzle-tabs {
-        flex-direction: column;
+        grid-template-columns: 1fr;
+        gap: 25px;
     }
     
     .puzzle-tab {
-        min-height: 400px;
+        min-height: 500px;
+    }
+    
+    .preview-puzzle-container {
+        padding: 20px;
+        margin: 10px;
     }
 }
 
 @media (max-width: 768px) {
+    .content-container {
+        padding: 10px;
+    }
+    
     .preview-puzzle-container {
-        padding: 20px 15px;
+        padding: 15px;
     }
     
     .page-title {
+        font-size: 1.6rem;
+    }
+    
+    .puzzle-tab {
+        padding: 20px;
+        min-height: 450px;
+    }
+    
+    .tab-title {
+        font-size: 1.2rem;
+    }
+    
+    .navbar-container {
+        padding: 0 15px;
+    }
+    
+    .navbar-menu {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        margin-bottom: 20px;
+    }
+    
+    .page-title {
+        font-size: 1.4rem;
+    }
+    
+    .back-link, .next-link {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .back-arrow, .next-arrow {
         font-size: 1.5rem;
     }
+    
+    .puzzle-character {
+        width: 100px;
+    }
+    
+    .piece-image {
+        width: 100px;
+    }
+}
+
+/* ========================================
+   ESTADOS ESPECIALES Y ANIMACIONES
+   ======================================== */
+.puzzle-tab.active {
+    transform: scale(1.02);
+    z-index: 10;
+}
+
+.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.completed {
+    border-color: #4CAF50 !important;
+    background-color: rgba(76, 175, 80, 0.05);
+}
+
+/* Animaciones suaves */
+* {
+    transition: all 0.3s ease;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Efectos de hover mejorados */
+.puzzle-piece-preview:hover .piece-image {
+    transform: scale(1.05);
+}
+
+.map-image:hover {
+    transform: scale(1.02);
 }

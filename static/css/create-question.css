@@ -131,6 +131,7 @@ body {
 .page-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 25px;
 }
 
@@ -142,12 +143,56 @@ body {
 .back-arrow {
     font-size: 24px;
     color: #333;
+    transition: transform 0.2s ease;
+}
+
+.back-arrow:hover {
+    transform: translateX(-3px);
 }
 
 .page-title {
     font-size: 1.6rem;
     font-weight: 600;
     color: #333;
+    flex: 1;
+    text-align: center;
+    margin: 0 20px;
+}
+
+/* NUEVO: Indicador de pasos */
+.step-indicator {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.step {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background-color: #e0e0e0;
+    color: #666;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.step.active {
+    background-color: #6c63ff;
+    color: white;
+    border-color: #6c63ff;
+    box-shadow: 0 2px 8px rgba(108, 99, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.step.completed {
+    background-color: #2ecc71;
+    color: white;
+    border-color: #2ecc71;
 }
 
 .create-puzzle-content {
@@ -263,53 +308,136 @@ body {
     border: 1px solid #ccc;
     border-radius: 6px;
     font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
+.form-input:focus {
+    outline: none;
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
+}
+
+/* NUEVO: Estilos para validación en tiempo real */
+.input-feedback {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    min-height: 20px;
+    transition: all 0.3s ease;
+}
+
+.input-feedback.error {
+    color: #e74c3c;
+}
+
+.input-feedback.success {
+    color: #27ae60;
+}
+
+.input-feedback.error::before {
+    content: "⚠ ";
+}
+
+.input-feedback.success::before {
+    content: "✓ ";
+}
+
+/* NUEVO: Estilos mejorados para el slider de dificultad */
 .difficulty-slider-container {
     display: flex;
     align-items: center;
-    gap: 12px;
-    margin-bottom: 10px;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.difficulty-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+    min-width: 50px;
 }
 
 .difficulty-slider {
     flex: 1;
-    height: 6px;
+    height: 8px;
     -webkit-appearance: none;
     appearance: none;
-    background: linear-gradient(to right, #ff5a5f, #f89406, #ff5a5f);
+    background: linear-gradient(to right, #27ae60 0%, #f39c12 50%, #e74c3c 100%);
     outline: none;
-    border-radius: 3px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.difficulty-slider:hover {
+    opacity: 0.8;
 }
 
 .difficulty-slider::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: #ff5a5f;
+    background: #fff;
+    border: 3px solid #6c63ff;
     cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease;
+}
+
+.difficulty-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
 }
 
 .difficulty-slider::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: #ff5a5f;
+    background: #fff;
+    border: 3px solid #6c63ff;
     cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+/* NUEVO: Indicadores de nivel de dificultad */
 .difficulty-labels {
     display: flex;
     justify-content: space-between;
-    width: 100%;
-    padding: 0 12px;
+    margin-bottom: 10px;
+    padding: 0 10px;
 }
 
-.difficulty-min, .difficulty-mid, .difficulty-max {
+.difficulty-level {
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.difficulty-level.active {
+    background-color: #6c63ff;
+    color: white;
+    transform: scale(1.05);
+}
+
+/* NUEVO: Descripción dinámica de dificultad */
+.difficulty-description {
+    background-color: rgba(108, 99, 255, 0.1);
+    border-left: 4px solid #6c63ff;
+    padding: 12px 15px;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.difficulty-description p {
+    margin: 0;
     font-size: 0.9rem;
-    color: #666;
+    color: #333;
+    font-style: italic;
 }
 
 .form-actions {
@@ -318,6 +446,7 @@ body {
     margin-top: 30px;
 }
 
+/* NUEVO: Estilos mejorados para el botón con estados */
 .next-button {
     background-color: #6c63ff;
     color: white;
@@ -326,13 +455,57 @@ body {
     padding: 12px 30px;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    min-width: 140px;
+    justify-content: center;
 }
 
-.next-button:hover {
+.next-button:hover:not(:disabled) {
     background-color: #5a52d5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
 }
 
+.next-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.btn-arrow {
+    transition: transform 0.3s ease;
+}
+
+.next-button:hover:not(:disabled) .btn-arrow {
+    transform: translateX(3px);
+}
+
+/* Animaciones adicionales */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-container {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.input-feedback {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Responsive design mejorado */
 @media (max-width: 768px) {
     .puzzle-step-container {
         flex-direction: column;
@@ -344,5 +517,49 @@ body {
 
     .navbar-menu {
         display: none;
+    }
+
+    .page-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .page-title {
+        margin: 0;
+    }
+
+    .difficulty-labels {
+        padding: 0 5px;
+    }
+
+    .difficulty-level {
+        font-size: 0.75rem;
+        padding: 3px 6px;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .create-puzzle-container {
+        padding: 20px;
+        margin: 10px 0;
+    }
+
+    .difficulty-slider-container {
+        gap: 10px;
+    }
+
+    .difficulty-label {
+        font-size: 0.8rem;
+        min-width: 40px;
+    }
+
+    .next-button {
+        width: 100%;
+        padding: 15px 30px;
     }
 }

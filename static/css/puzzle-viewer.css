@@ -1,0 +1,628 @@
+/* Puzzle Styles - Mejorado según mockup */
+.puzzle-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+}
+
+.puzzle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.puzzle-title {
+    color: #333;
+    font-size: 2em;
+    font-weight: 600;
+    margin: 0;
+}
+
+.piece-selector {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.piece-dropdown {
+    padding: 8px 16px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.piece-dropdown:hover {
+    border-color: #4A90E2;
+    transform: translateY(-1px);
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+}
+
+.control-btn {
+    width: 36px;
+    height: 36px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+.control-btn:hover {
+    border-color: #4A90E2;
+    background: #f8f9fa;
+    transform: translateY(-1px);
+}
+
+.control-btn:active {
+    transform: translateY(0) scale(0.95);
+}
+
+.puzzle-main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* Puzzle Armado - Estilo mockup */
+.assembled-puzzle {
+    background: #e8e8e8;
+    border-radius: 15px;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+}
+
+.puzzle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0;
+    max-width: 200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.puzzle-piece {
+    width: 80px;
+    height: 80px;
+    position: relative;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+}
+
+/* Piezas del puzzle armado - Colores específicos del mockup */
+.assembled.blue-piece {
+    background: #4A90E2;
+    grid-column: 1 / 3;
+    justify-self: center;
+    width: 120px;
+    height: 60px;
+    border-radius: 15px 15px 0 0;
+    position: relative;
+    z-index: 4;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.assembled.blue-piece::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 20px;
+    background: #4A90E2;
+    border-radius: 0 0 8px 8px;
+}
+
+.assembled.orange-piece {
+    background: #FF8C42;
+    width: 60px;
+    height: 60px;
+    border-radius: 8px 0 0 8px;
+    position: relative;
+    z-index: 2;
+    margin-top: -10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.assembled.orange-piece::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 30px;
+    background: #FF8C42;
+    border-radius: 0 8px 8px 0;
+}
+
+.assembled.yellow-piece {
+    background: #F5D76E;
+    width: 60px;
+    height: 60px;
+    border-radius: 0 8px 8px 0;
+    position: relative;
+    z-index: 2;
+    margin-top: -10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.assembled.yellow-piece::after {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 30px;
+    background: #F5D76E;
+    border-radius: 8px 0 0 8px;
+}
+
+.assembled.red-piece {
+    background: #E74C3C;
+    grid-column: 1 / 3;
+    justify-self: center;
+    width: 120px;
+    height: 60px;
+    border-radius: 0 0 15px 15px;
+    position: relative;
+    z-index: 1;
+    margin-top: -10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.assembled.red-piece::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 20px;
+    background: #E74C3C;
+    border-radius: 8px 8px 0 0;
+}
+
+.assembled:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+/* Instrucciones y profesor */
+.puzzle-instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.instruction-text p {
+    color: #333;
+    font-size: 1.1em;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.5;
+    text-align: center;
+}
+
+/* Profesor CSS - Estilo más parecido al mockup */
+.teacher-character {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.teacher-avatar {
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.teacher-head {
+    width: 50px;
+    height: 55px;
+    background: #FDBCB4;
+    border-radius: 50% 50% 45% 45%;
+    position: relative;
+    border: 2px solid #333;
+}
+
+.teacher-head::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 12px;
+    width: 6px;
+    height: 6px;
+    background: #333;
+    border-radius: 50%;
+    box-shadow: 16px 0 0 #333;
+}
+
+.teacher-head::after {
+    content: '';
+    position: absolute;
+    top: 30px;
+    left: 15px;
+    width: 20px;
+    height: 12px;
+    background: #333;
+    border-radius: 0 0 10px 10px;
+    clip-path: polygon(20% 0%, 80% 0%, 90% 100%, 10% 100%);
+}
+
+.teacher-body {
+    width: 70px;
+    height: 90px;
+    background: #8B4513;
+    border-radius: 10px;
+    position: relative;
+    margin-top: -5px;
+    border: 2px solid #333;
+}
+
+.teacher-body::before {
+    content: '';
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 50px;
+    background: white;
+    border-radius: 5px;
+    border: 2px solid #333;
+}
+
+.teacher-body::after {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    width: 20px;
+    height: 3px;
+    background: #E74C3C;
+    box-shadow: 0 8px 0 #E74C3C, 0 16px 0 #E74C3C;
+}
+
+.teacher-arm {
+    position: absolute;
+    top: 110px;
+    right: -20px;
+    width: 35px;
+    height: 12px;
+    background: #FDBCB4;
+    border-radius: 8px;
+    border: 2px solid #333;
+    transform-origin: left center;
+    transform: rotate(-15deg);
+}
+
+.teacher-pointer {
+    position: absolute;
+    top: 100px;
+    right: -50px;
+    width: 25px;
+    height: 3px;
+    background: #8B4513;
+    border-radius: 2px;
+    transform-origin: left center;
+    transform: rotate(-20deg);
+}
+
+.teacher-pointer::after {
+    content: '';
+    position: absolute;
+    right: -5px;
+    top: -2px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid #8B4513;
+    border-top: 3px solid transparent;
+    border-bottom: 3px solid transparent;
+}
+
+/* Piezas disponibles */
+.available-pieces {
+    grid-column: 1 / 3;
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.pieces-title {
+    color: #333;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.pieces-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 120px;
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+/* Piezas 3D draggables - Estilo mockup */
+.draggable {
+    width: 100px;
+    height: 100px;
+    cursor: grab;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    position: absolute;
+    opacity: 0;
+    display: none;
+    border-radius: 8px;
+}
+
+.draggable:hover {
+    transform: translateY(-8px) scale(1.05) !important;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.draggable:active {
+    cursor: grabbing;
+    transform: translateY(-2px) scale(0.98) !important;
+}
+
+.draggable.selected {
+    animation: selectedPulse 0.6s ease-in-out;
+}
+
+@keyframes selectedPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+/* Piezas 3D individuales */
+.piece-3d {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+}
+
+.piece-3d div {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    border: 2px solid #333;
+    border-radius: 8px;
+}
+
+.piece-front { 
+    transform: translateZ(8px); 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.piece-back { 
+    transform: translateZ(-8px) rotateY(180deg); 
+    opacity: 0.8;
+}
+.piece-top { 
+    transform: rotateX(90deg) translateZ(8px); 
+    height: 16px; 
+    opacity: 0.9;
+}
+.piece-bottom { 
+    transform: rotateX(-90deg) translateZ(92px); 
+    height: 16px; 
+    opacity: 0.7;
+}
+.piece-left { 
+    transform: rotateY(-90deg) translateZ(8px); 
+    width: 16px; 
+    opacity: 0.8;
+}
+.piece-right { 
+    transform: rotateY(90deg) translateZ(92px); 
+    width: 16px; 
+    opacity: 0.8;
+}
+
+/* Pieza 1 - Azul */
+.piece-1 .piece-3d div {
+    background: #4A90E2;
+}
+
+.piece-1 .piece-front {
+    position: relative;
+    background: #4A90E2;
+}
+
+.piece-1 .piece-front::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 16px;
+    background: #4A90E2;
+    border: 2px solid #333;
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+}
+
+/* Pieza 2 - Naranja */
+.piece-2 .piece-3d div {
+    background: #FF8C42;
+}
+
+.piece-2 .piece-front {
+    position: relative;
+    background: #FF8C42;
+}
+
+.piece-2 .piece-front::after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 25px;
+    background: #FF8C42;
+    border: 2px solid #333;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+}
+
+/* Pieza 3 - Amarilla */
+.piece-3 .piece-3d div {
+    background: #F5D76E;
+}
+
+.piece-3 .piece-front {
+    position: relative;
+    background: #F5D76E;
+}
+
+.piece-3 .piece-front::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 25px;
+    background: #F5D76E;
+    border: 2px solid #333;
+    border-right: none;
+    border-radius: 6px 0 0 6px;
+}
+
+.piece-3 .piece-front::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25px;
+    height: 16px;
+    background: #F5D76E;
+    border: 2px solid #333;
+    border-bottom: none;
+    border-radius: 6px 6px 0 0;
+}
+
+/* Animación de hover */
+.draggable:hover .piece-3d {
+    transform: rotateX(15deg) rotateY(15deg);
+}
+
+/* Animaciones de entrada y salida */
+@keyframes pieceEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes pieceExit {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.8);
+    }
+}
+
+/* Reset animation */
+.reset-animation .assembled {
+    animation: resetPiece 0.8s ease-in-out;
+}
+
+@keyframes resetPiece {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px) rotateZ(5deg); }
+    100% { transform: translateY(0); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .puzzle-main {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .puzzle-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .puzzle-title {
+        font-size: 1.5em;
+    }
+    
+    .assembled-puzzle {
+        padding: 20px;
+    }
+    
+    .puzzle-grid {
+        max-width: 150px;
+    }
+    
+    .assembled.blue-piece,
+    .assembled.red-piece {
+        width: 90px;
+        height: 45px;
+    }
+    
+    .assembled.orange-piece,
+    .assembled.yellow-piece {
+        width: 45px;
+        height: 45px;
+    }
+}
