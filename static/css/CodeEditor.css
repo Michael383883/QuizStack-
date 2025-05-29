@@ -1,180 +1,577 @@
-/* Contenedor principal */
 .code-editor-container {
-    font-family: 'Fira Code', 'Consolas', monospace;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 480px;
+  min-height: 700px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
-.editor-title {
-    color: #2c3e50;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    text-align: center;
+.command-toolbar {
+  padding: 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-/* Barra de herramientas */
-.editor-toolbar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #e0e0e0;
+.toolbar-title {
+  margin: 0 0 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
 }
 
-.tool-btn {
-    padding: 8px 15px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-family: inherit;
-    font-size: 0.9rem;
-    transition: all 0.2s;
+.command-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
 }
 
-.tool-btn:hover {
-    background-color: #2980b9;
-    transform: translateY(-2px);
+.cmd-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  width: 100%;
+  text-align: left;
 }
 
-.tool-btn:active {
-    transform: translateY(0);
+.cmd-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
 }
 
-/* Área de trabajo */
-.editor-workspace {
-    background-color: #ffffff;
-    border-radius: 6px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgb(255, 255, 255);
+.cmd-btn:active {
+  transform: translateY(0);
 }
 
-.editor-header {
-    display: flex;
-    align-items: center;
-    padding: 8px 15px;
-    background-color: #ffffff;
-    border-bottom: 1px solid #3e4451;
+.cmd-btn.move-cmd {
+  background: #dcfce7;
+  border-color: #bbf7d0;
+  color: #166534;
 }
 
-.editor-dots {
-    display: flex;
-    gap: 6px;
+.cmd-btn.move-cmd:hover {
+  background: #bbf7d0;
 }
 
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+.cmd-btn.turn-cmd {
+  background: #ddd6fe;
+  border-color: #c4b5fd;
+  color: #6b21a8;
 }
 
-.dot-red { background-color: #ff5f56; }
-.dot-yellow { background-color: #ffbd2e; }
-.dot-green { background-color: #27c93f; }
-
-.editor-filename {
-    margin-left: 15px;
-    color: #9da5b4;
-    font-size: 0.85rem;
+.cmd-btn.turn-cmd:hover {
+  background: #c4b5fd;
 }
 
-.editor-area {
-    min-height: 200px;
-    padding: 15px;
-    color: #abb2bf;
-    font-size: 0.95rem;
-    line-height: 1.5;
+.cmd-btn.check-cmd {
+  background: #fef3c7;
+  border-color: #fde68a;
+  color: #92400e;
+}
+
+.cmd-btn.check-cmd:hover {
+  background: #fde68a;
+}
+
+.cmd-icon {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.cmd-text {
+  flex: 1;
+}
+
+.control-structures h4 {
+  margin: 0 0 8px 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.struct-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 13px;
+  font-weight: 500;
+  color: #991b1b;
+  width: 100%;
+  text-align: left;
+  margin-bottom: 6px;
+}
+
+.struct-btn:hover {
+  background: #fecaca;
+  transform: translateY(-1px);
+}
+
+.struct-icon {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
+}
+
+.struct-text {
+  flex: 1;
+}
+
+.code-area {
+  flex: 1;
+  padding: 20px;
+  background: #ffffff;
+}
+
+.code-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.code-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.code-stats {
+  font-size: 12px;
+  color: #6b7280;
+  background: #f3f4f6;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.code-canvas {
+  min-height: 280px;
+  background: #f9fafb;
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
 }
 
 .code-placeholder {
-    color: #5c6370;
-    font-style: italic;
-    text-align: center;
-    padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 120px;
+  color: #9ca3af;
+  font-size: 13px;
+  text-align: center;
 }
 
-.drag-over {
-    background-color: rgba(185, 204, 219, 0.1);
-    outline: 2px dashed #61afef;
+.code-placeholder p {
+  margin: 0;
 }
 
-/* Bloques de código */
-.code-block {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ffffff;
-    padding: 8px 12px;
-    margin-bottom: 8px;
-    border-radius: 4px;
-    border-left: 3px solid #61afef;
+.command-block {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  margin-bottom: 8px;
+  cursor: move;
+  transition: all 0.2s ease;
+  position: relative;
 }
 
-.code-command {
-    color: #000000;
+.command-block:hover {
+  border-color: #9ca3af;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.code-remove {
-    background: none;
-    border: none;
-    color: #5c6370;
-    cursor: pointer;
-    font-size: 1.2rem;
-    line-height: 1;
-    padding: 0 5px;
+.command-block.highlight {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
-.code-remove:hover {
-    color: #e06c75;
+.block-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
 }
 
-/* Botones de acción */
-.editor-actions {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+.block-icon {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
 }
 
-.action-btn {
-    padding: 10px 25px;
-    border: none;
-    border-radius: 4px;
-    font-family: inherit;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.2s;
+.block-title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
 }
 
-.run-btn {
-    background-color: #2ecc71;
-    color: white;
+.delete-block {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 2px 4px;
+  border-radius: 3px;
+  transition: background-color 0.2s ease;
 }
 
-.run-btn:hover {
-    background-color: #27ae60;
+.delete-block:hover {
+  background: #fee2e2;
 }
 
-.build-btn {
-    background-color: #3498db;
-    color: white;
+.structure-block {
+  background: #ffffff;
+  border: 1px solid #f87171;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  overflow: hidden;
 }
 
-.build-btn:hover {
-    background-color: #2980b9;
+.structure-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #fef2f2;
+  border-bottom: 1px solid #fecaca;
 }
 
-.clear-btn {
-    background-color: #e74c3c;
-    color: white;
+.structure-icon {
+  font-size: 16px;
+  min-width: 20px;
+  text-align: center;
 }
 
-.clear-btn:hover {
-    background-color: #c0392b;
+.structure-title {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: #991b1b;
+}
+
+.structure-body {
+  padding: 8px;
+  min-height: 40px;
+  background: #fffbeb;
+}
+
+.structure-placeholder {
+  color: #d97706;
+  font-size: 12px;
+  text-align: center;
+  padding: 8px;
+  font-style: italic;
+}
+
+.execution-controls {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+  background: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+}
+
+.exec-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 8px;
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 12px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.exec-btn:hover:not(:disabled) {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+  transform: translateY(-1px);
+}
+
+.exec-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.exec-btn.validate-btn {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+
+.exec-btn.validate-btn:hover:not(:disabled) {
+  background: #d1fae5;
+}
+
+.exec-btn.run-btn {
+  background: #eff6ff;
+  border-color: #93c5fd;
+  color: #1e40af;
+}
+
+.exec-btn.run-btn:hover:not(:disabled) {
+  background: #dbeafe;
+}
+
+.exec-btn.clear-btn {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+.exec-btn.clear-btn:hover:not(:disabled) {
+  background: #fee2e2;
+}
+
+.exec-btn.reset-btn {
+  background: #fefbef;
+  border-color: #fed7aa;
+  color: #9a3412;
+}
+
+.exec-btn.reset-btn:hover:not(:disabled) {
+  background: #fef3c7;
+}
+
+.btn-icon {
+  font-size: 16px;
+}
+
+.btn-text {
+  font-size: 10px;
+  line-height: 1;
+}
+
+.connection-status {
+  padding: 8px 16px;
+  background: #fef3c7;
+  border-top: 1px solid #fde68a;
+  font-size: 12px;
+  color: #92400e;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.connection-status.connected {
+  background: #dcfce7;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal-content {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.modal-close:hover {
+  background: #f3f4f6;
+  color: #374151;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #374151;
+  background: #ffffff;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+.modal-footer {
+  display: flex;
+  gap: 8px;
+  padding: 16px 20px;
+  background: #f8fafc;
+  border-top: 1px solid #e5e7eb;
+}
+
+.modal-btn {
+  flex: 1;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.modal-btn.cancel-btn {
+  background: #ffffff;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.modal-btn.cancel-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.modal-btn.create-btn {
+  background: #3b82f6;
+  color: #ffffff;
+}
+
+.modal-btn.create-btn:hover {
+  background: #2563eb;
+}
+
+@media (max-width: 480px) {
+  .code-editor-container {
+    max-width: 100%;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+  
+  .command-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .execution-controls {
+    flex-wrap: wrap;
+  }
+  
+  .exec-btn {
+    min-width: 0;
+    flex: 1 1 calc(50% - 4px);
+  }
+}
+
+.code-canvas:empty::before {
+  content: "Arrastra comandos aquí para construir tu algoritmo";
+  color: #9ca3af;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  text-align: center;
+}
+
+.command-block[draggable="true"]:hover {
+  cursor: grab;
+}
+
+.command-block[draggable="true"]:active {
+  cursor: grabbing;
+}
+
+.structure-block[draggable="true"]:hover {
+  cursor: grab;
+}
+
+.structure-block[draggable="true"]:active {
+  cursor: grabbing;
 }
