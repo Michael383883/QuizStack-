@@ -1,3 +1,5 @@
+
+
 module Web.View.PuzzleResolution.CodeEditor where
 import Web.View.Prelude
 
@@ -6,24 +8,19 @@ renderCodeEditor = [hsx|
     <div class="code-editor-container">
         <link rel="stylesheet" href="/css/CodeEditor.css" />
         
-        <!-- Toolbar de comandos -->
         <div class="command-toolbar">
             <h3 class="toolbar-title">Comandos de Navegación</h3>
             <div class="command-buttons">
                 <button class="cmd-btn move-cmd" data-command="avanzar">
-                  
                     <span class="cmd-text">Avanzar</span>
                 </button>
                 <button class="cmd-btn turn-cmd" data-command="girar_derecha">
-                    
                     <span class="cmd-text">Girar Derecha</span>
                 </button>
                 <button class="cmd-btn turn-cmd" data-command="girar_izquierda">
-                    
                     <span class="cmd-text">Girar Izquierda</span>
                 </button>
                 <button class="cmd-btn check-cmd" data-command="verificar_frente">
-                    
                     <span class="cmd-text">Verificar Frente</span>
                 </button>
             </div>
@@ -31,18 +28,14 @@ renderCodeEditor = [hsx|
             <div class="control-structures">
                 <h4>🔄 Estructuras de Control</h4>
                 <button class="struct-btn repeat-struct" data-structure="repeat">
-                    
                     <span class="struct-text">Repetir(n)</span>
                 </button>
                 <button class="struct-btn if-struct" data-structure="if">
-                    
                     <span class="struct-text">Si(condición)</span>
                 </button>
-                
             </div>
         </div>
         
-        <!-- Área de código visual -->
         <div class="code-area">
             <div class="code-header">
                 <h3>🧩 Tu Algoritmo</h3>
@@ -58,7 +51,6 @@ renderCodeEditor = [hsx|
             </div>
         </div>
         
-        <!-- Controles de ejecución -->
         <div class="execution-controls">
             <button class="exec-btn validate-btn" id="validateBtn">
                 <span class="btn-icon">✓</span>
@@ -78,13 +70,11 @@ renderCodeEditor = [hsx|
             </button>
         </div>
         
-        <!-- Estado de conexión -->
         <div class="connection-status">
             <span id="connectionStatus">🔗 Esperando conexión con el mapa...</span>
         </div>
     </div>
     
-    <!-- Modal para estructuras repetir -->
     <div class="modal-overlay" id="repeatModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -106,8 +96,6 @@ renderCodeEditor = [hsx|
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('🎮 CodeEditor iniciando...');
-            
             let editorState = {
                 commands: [],
                 nextId: 1,
@@ -122,7 +110,6 @@ renderCodeEditor = [hsx|
             const validateBtn = document.getElementById('validateBtn');
             const resetBtn = document.getElementById('resetBtn');
             
-            // Verificar conexión con PuzzleViewer
             function checkConnection() {
                 if (window.puzzleControls && typeof window.puzzleControls.isReady === 'function') {
                     try {
@@ -132,7 +119,6 @@ renderCodeEditor = [hsx|
                             connectionStatus.textContent = '✅ Conectado al mapa';
                             connectionStatus.className = 'connection-status connected';
                             runBtn.disabled = false;
-                            console.log('✅ Conexión establecida con PuzzleViewer');
                             return true;
                         }
                     } catch (error) {
@@ -140,7 +126,6 @@ renderCodeEditor = [hsx|
                     }
                 }
                 
-                // Reintentar conexión
                 setTimeout(checkConnection, 500);
                 return false;
             }
@@ -246,13 +231,11 @@ renderCodeEditor = [hsx|
                 updateStats();
             }
             
-            // Expandir comandos con estructuras de control
             function expandCommands(commands) {
                 const expanded = [];
                 
                 commands.forEach(cmd => {
                     if (cmd.type === 'structure' && cmd.command === 'repeat') {
-                        // Expandir estructura repeat
                         const count = parseInt(cmd.count) || 1;
                         const repeatCommands = cmd.children || [];
                         
@@ -267,7 +250,6 @@ renderCodeEditor = [hsx|
                 return expanded;
             }
             
-            // Validar secuencia de comandos
             function validateCommands() {
                 if (editorState.commands.length === 0) {
                     alert('⚠️ No hay comandos para validar');
@@ -275,15 +257,12 @@ renderCodeEditor = [hsx|
                 }
                 
                 const expandedCommands = expandCommands(editorState.commands);
-                console.log('🔍 Validando comandos:', expandedCommands);
                 
-                // Validaciones básicas
                 if (expandedCommands.length > 100) {
                     alert('⚠️ Demasiados comandos (máximo 100)');
                     return false;
                 }
                 
-                // Verificar comandos válidos
                 const validCommands = ['avanzar', 'girar_derecha', 'girar_izquierda', 'verificar_frente'];
                 const invalidCommands = expandedCommands.filter(cmd => !validCommands.includes(cmd));
                 
@@ -292,11 +271,9 @@ renderCodeEditor = [hsx|
                     return false;
                 }
                 
-                console.log('✅ Comandos válidos');
                 return true;
             }
             
-            // Ejecutar comandos en PuzzleViewer
             function executeCommands() {
                 if (!editorState.isConnected) {
                     alert('❌ No hay conexión con el mapa');
@@ -308,26 +285,18 @@ renderCodeEditor = [hsx|
                 }
                 
                 const expandedCommands = expandCommands(editorState.commands);
-                console.log('🚀 Enviando comandos al PuzzleViewer:', expandedCommands);
                 
                 try {
-                    // Resetear el mapa primero
                     window.puzzleControls.resetSimulation();
                     
-                    // Pequeña pausa para que se complete el reset
                     setTimeout(() => {
-                        // Configurar comandos
                         window.puzzleControls.setCommands(expandedCommands);
-                        
-                        // Iniciar ejecución
                         window.puzzleControls.startExecution();
                         
-                        // Deshabilitar botón de ejecución durante la animación
                         runBtn.disabled = true;
                         runBtn.innerHTML = '<span class="btn-icon">⏳</span><span class="btn-text">Ejecutando...</span>';
                         
-                        // Reactivar después de un tiempo estimado
-                        const estimatedTime = expandedCommands.length * 1000 + 2000; // 1 segundo por comando + 2 segundos extra
+                        const estimatedTime = expandedCommands.length * 1000 + 2000;
                         setTimeout(() => {
                             runBtn.disabled = false;
                             runBtn.innerHTML = '<span class="btn-icon">▶</span><span class="btn-text">Ejecutar</span>';
@@ -343,16 +312,13 @@ renderCodeEditor = [hsx|
                 }
             }
             
-            // Event listeners para comandos
             document.querySelectorAll('.cmd-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const command = this.dataset.command;
                     addCommandToCanvas(command);
-                    console.log(`➕ Comando agregado: ${command}`);
                 });
             });
             
-            // Event listeners para estructuras
             document.querySelectorAll('.struct-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     const structure = this.dataset.structure;
@@ -362,7 +328,6 @@ renderCodeEditor = [hsx|
                 });
             });
             
-            // Event listeners para controles
             validateBtn.addEventListener('click', function() {
                 if (validateCommands()) {
                     alert('✅ Algoritmo válido');
@@ -373,17 +338,14 @@ renderCodeEditor = [hsx|
             
             document.getElementById('clearBtn').addEventListener('click', function() {
                 clearCanvas();
-                console.log('🗑️ Canvas limpiado');
             });
             
             resetBtn.addEventListener('click', function() {
                 if (editorState.isConnected && window.puzzleControls.resetSimulation) {
                     window.puzzleControls.resetSimulation();
-                    console.log('🔄 Simulación reiniciada');
                 }
             });
             
-            // Modal handlers
             document.getElementById('closeRepeatModal').addEventListener('click', function() {
                 repeatModal.classList.remove('show');
             });
@@ -408,18 +370,16 @@ renderCodeEditor = [hsx|
                         command: 'repeat',
                         type: 'structure',
                         count: count,
-                        children: [] // Para comandos anidados
+                        children: []
                     });
                     
                     updateStats();
                     highlightLastCommand();
-                    console.log(`🔁 Estructura repeat creada: ${count} veces`);
                 }
                 
                 repeatModal.classList.remove('show');
             });
             
-            // Delete blocks
             codeCanvas.addEventListener('click', function(e) {
                 if (e.target.classList.contains('delete-block')) {
                     const blockId = e.target.dataset.id;
@@ -428,7 +388,6 @@ renderCodeEditor = [hsx|
                         block.remove();
                         editorState.commands = editorState.commands.filter(cmd => cmd.id !== blockId);
                         updateStats();
-                        console.log(`🗑️ Comando eliminado: ${blockId}`);
                         
                         if (editorState.commands.length === 0) {
                             clearCanvas();
@@ -437,16 +396,9 @@ renderCodeEditor = [hsx|
                 }
             });
             
-            // Inicializar
             updateStats();
-            
-            // Deshabilitar botón de ejecutar hasta que haya conexión
             runBtn.disabled = true;
-            
-            // Intentar conectar con PuzzleViewer
             checkConnection();
-            
-            console.log('✅ CodeEditor inicializado correctamente');
         });
     </script>
 |]
