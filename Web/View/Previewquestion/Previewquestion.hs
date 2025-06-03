@@ -908,7 +908,7 @@ instance View PreviewquestionView where
                         document.getElementById('publish-btn').style.display = 'inline-block';
                     }
                     
-                    window.confirmPublish = function() {
+                   window.confirmPublish = function() {
                         const isPublic = document.getElementById('make-public').checked;
                         const allowSharing = document.getElementById('allow-sharing').checked;
                         const educationalMode = document.getElementById('educational-mode').checked;
@@ -925,36 +925,47 @@ instance View PreviewquestionView where
                             educationalMode: educationalMode,
                             createdAt: new Date().toISOString(),
                             pieceCount: [9, 16, 25][puzzleData.difficulty - 1],
-                            countriesCount: detectedCountries.length
+                            countriesCount: detectedCountries.length,
+                            // ASEGURAR que la pregunta esté incluida explícitamente
+                            question: puzzleData.question || sessionStorage.getItem('puzzleQuestion') || ''
                         };
                         
                         // Guardar en sessionStorage para la siguiente página
                         sessionStorage.setItem('finalPuzzleData', JSON.stringify(finalPuzzleData));
                         
+                        // *** NO ELIMINAR puzzleQuestion hasta después de crear finalPuzzleData ***
+                        // Comentar o mover estas líneas al final:
+                        // sessionStorage.removeItem('puzzleQuestion');
+                        // sessionStorage.removeItem('puzzleDifficulty');
+                        // sessionStorage.removeItem('puzzleHint');
+                        // sessionStorage.removeItem('puzzleNoHint');
+                        // sessionStorage.removeItem('puzzleImageData');
+                        // sessionStorage.removeItem('puzzleImageName');
+                        
                         // Mostrar confirmación
-                        let message = ` ¡Puzzle geográfico publicado exitosamente!\n\n`;
-                        message += ` Detalles:\n`;
+                        let message = `🎉 ¡Puzzle geográfico publicado exitosamente!\n\n`;
+                        message += `📋 Detalles:\n`;
                         message += `• ${detectedCountries.length} países detectados\n`;
                         message += `• ${finalPuzzleData.pieceCount} piezas de dificultad\n`;
                         message += `• Modo educativo: ${educationalMode ? 'Activado' : 'Desactivado'}\n`;
-                        message += `\n Redirigiendo al juego...`;
+                        message += `\n🎮 Redirigiendo al juego...`;
                         
                         alert(message);
                         
-                        // Limpiar datos temporales
-                        sessionStorage.removeItem('puzzleQuestion');
-                        sessionStorage.removeItem('puzzleDifficulty');
-                        sessionStorage.removeItem('puzzleHint');
-                        sessionStorage.removeItem('puzzleNoHint');
-                        sessionStorage.removeItem('puzzleImageData');
-                        sessionStorage.removeItem('puzzleImageName');
-                        
                         // Redireccionar al juego del puzzle
                         setTimeout(() => {
+                            // Limpiar datos temporales DESPUÉS de la redirección
+                            sessionStorage.removeItem('puzzleQuestion');
+                            sessionStorage.removeItem('puzzleDifficulty');
+                            sessionStorage.removeItem('puzzleHint');
+                            sessionStorage.removeItem('puzzleNoHint');
+                            sessionStorage.removeItem('puzzleImageData');
+                            sessionStorage.removeItem('puzzleImageName');
+                            
                             window.location.href = '/PuzzleResolution';
                         }, 2000);
                     }
-                    
+                                        
                    
                     function simulateAdvancedCountryDetection(imageData) {
                         // Esta función simularía el uso de IA/Computer Vision para detectar países reales
@@ -976,6 +987,18 @@ instance View PreviewquestionView where
                         });
                     }
                 });
+
+
+                setTimeout(() => {
+                    // Limpiar datos temporales DESPUÉS de un delay
+                    sessionStorage.removeItem('puzzleQuestion');
+                    sessionStorage.removeItem('puzzleDifficulty');
+                    sessionStorage.removeItem('puzzleHint');
+                    sessionStorage.removeItem('puzzleNoHint');
+                    sessionStorage.removeItem('puzzleImageData');
+                    sessionStorage.removeItem('puzzleImageName');
+                }, 5000); // 5 segundos después de la redirección
+
             </script>
         </body>
     |]
