@@ -20,8 +20,8 @@ instance View HomeView where
                         <a href="#" class="nav-link">About</a>
                         <a href="#" class="nav-link">Features</a>
                         <a href="#" class="nav-link">Pricing</a>
-                        <a href="#" class="nav-link">Gallery</a>
-                        <a href="#" class="nav-link">Team</a>
+                        <a href="#" class="nav-link">Cuestionarios</a>
+                        <a href="#" class="nav-link">EQuipo</a>
                     </div>
                     <div class="nav-button-container">
                         <a href="#" class="nav-button">INICIAR PRUEBA</a>
