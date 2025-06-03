@@ -9,7 +9,14 @@ import Web.View.PuzzleResolution.Index
 
 instance Controller CreateQuestionController where
     action NewCreateQuestionAction = do
+
+        
         render NewView
+
+
+
+
+
 
     action NewCuestiontwoAction= do
         render NewCuestiontwoView

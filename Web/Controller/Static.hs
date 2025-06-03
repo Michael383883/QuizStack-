@@ -6,3 +6,4 @@ import Web.View.Static.Home
 instance Controller StaticController where
     --action WelcomeAction = render WelcomeView
     action HomeAction = render HomeView
+    action WelcomeAction = render WelcomeView
