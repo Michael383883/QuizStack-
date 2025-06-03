@@ -9,6 +9,10 @@ import IHP.Job.Types
 import Web.FrontController
 import Web.Types
 
+
+
+
+
 instance FrontController RootApplication where
     controllers = [
             mountFrontController WebApplication
