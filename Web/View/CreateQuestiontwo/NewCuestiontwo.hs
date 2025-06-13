@@ -1,5 +1,3 @@
-
-
 module Web.View.CreateQuestiontwo.NewCuestiontwo where
 
 import Web.View.Prelude
@@ -139,253 +137,293 @@ instance View NewCuestiontwoView where
             </div>
             
             <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const form = document.getElementById('step2-form');
-                    const hintTextarea = document.getElementById('hint');
-                    const hintCounter = document.getElementById('hint-counter');
-                    const noHintCheckbox = document.getElementById('no-hint');
-                    const fileUpload = document.getElementById('file-upload');
-                    const uploadArea = document.getElementById('upload-area');
-                    const uploadContent = document.getElementById('upload-content');
-                    const fileInfo = document.getElementById('file-info');
-                    const removeFileBtn = document.getElementById('remove-file');
-                    const nextBtn = document.getElementById('next-btn');
-                    const uploadFeedback = document.getElementById('upload-feedback');
-                    
-                    let uploadedFile = null;
-                    
-                    // Cargar datos del paso anterior
-                    loadPreviousStepData();
-                    
-                    // Cargar datos guardados del paso actual
-                    loadSavedData();
-                    
-                    // Event listeners
-                    hintTextarea.addEventListener('input', handleHintInput);
-                    noHintCheckbox.addEventListener('change', handleNoHintToggle);
-                    fileUpload.addEventListener('change', handleFileSelect);
-                    removeFileBtn.addEventListener('click', removeFile);
-                    
-                    // Drag and drop
-                    uploadArea.addEventListener('dragover', handleDragOver);
-                    uploadArea.addEventListener('dragleave', handleDragLeave);
-                    uploadArea.addEventListener('drop', handleDrop);
-                    uploadArea.addEventListener('click', () => fileUpload.click());
-                    
-                    form.addEventListener('submit', handleFormSubmit);
-                    
-                    function loadPreviousStepData() {
-                        const question = sessionStorage.getItem('puzzleQuestion');
-                        const difficulty = sessionStorage.getItem('puzzleDifficulty');
+                (function() {
+                    const initializeForm = function() {
+                        const form = document.getElementById('step2-form');
+                        const hintTextarea = document.getElementById('hint');
+                        const hintCounter = document.getElementById('hint-counter');
+                        const noHintCheckbox = document.getElementById('no-hint');
+                        const fileUpload = document.getElementById('file-upload');
+                        const uploadArea = document.getElementById('upload-area');
+                        const uploadContent = document.getElementById('upload-content');
+                        const fileInfo = document.getElementById('file-info');
+                        const removeFileBtn = document.getElementById('remove-file');
+                        const nextBtn = document.getElementById('next-btn');
+                        const uploadFeedback = document.getElementById('upload-feedback');
                         
-                        if (question) {
-                            document.getElementById('current-question').textContent = question;
+                        let uploadedFile = null;
+                        
+                        loadPreviousStepData();
+                        loadSavedData();
+                        
+                        if (hintTextarea) hintTextarea.addEventListener('input', handleHintInput);
+                        if (noHintCheckbox) noHintCheckbox.addEventListener('change', handleNoHintToggle);
+                        if (fileUpload) fileUpload.addEventListener('change', handleFileSelect);
+                        if (removeFileBtn) removeFileBtn.addEventListener('click', removeFile);
+                        
+                        if (uploadArea) {
+                            uploadArea.addEventListener('dragover', handleDragOver);
+                            uploadArea.addEventListener('dragleave', handleDragLeave);
+                            uploadArea.addEventListener('drop', handleDrop);
+                            uploadArea.addEventListener('click', function() {
+                                if (fileUpload) fileUpload.click();
+                            });
                         }
                         
-                        if (difficulty) {
-                            const difficultyNames = ['Fácil', 'Medio', 'Difícil'];
-                            document.getElementById('current-difficulty').textContent = difficultyNames[difficulty - 1];
-                        }
-                    }
-                    
-                    function loadSavedData() {
-                        const savedHint = sessionStorage.getItem('puzzleHint');
-                        const savedNoHint = sessionStorage.getItem('puzzleNoHint');
-                        const savedImageData = sessionStorage.getItem('puzzleImageData');
-                        const savedImageName = sessionStorage.getItem('puzzleImageName');
+                        if (form) form.addEventListener('submit', handleFormSubmit);
                         
-                        if (savedHint) {
-                            hintTextarea.value = savedHint;
+                        function loadPreviousStepData() {
+                            try {
+                                const question = sessionStorage.getItem('puzzleQuestion');
+                                const difficulty = sessionStorage.getItem('puzzleDifficulty');
+                                
+                                if (question) {
+                                    const questionEl = document.getElementById('current-question');
+                                    if (questionEl) questionEl.textContent = question;
+                                }
+                                
+                                if (difficulty) {
+                                    const difficultyNames = ['Fácil', 'Medio', 'Difícil'];
+                                    const difficultyEl = document.getElementById('current-difficulty');
+                                    if (difficultyEl) difficultyEl.textContent = difficultyNames[difficulty - 1] || 'Fácil';
+                                }
+                            } catch (e) {
+                                console.error('Error loading previous step data:', e);
+                            }
+                        }
+                        
+                        function loadSavedData() {
+                            try {
+                                const savedHint = sessionStorage.getItem('puzzleHint');
+                                const savedNoHint = sessionStorage.getItem('puzzleNoHint');
+                                const savedImageData = sessionStorage.getItem('puzzleImageData');
+                                const savedImageName = sessionStorage.getItem('puzzleImageName');
+                                
+                                if (savedHint && hintTextarea) {
+                                    hintTextarea.value = savedHint;
+                                    updateHintCounter();
+                                }
+                                
+                                if (savedNoHint === 'true' && noHintCheckbox) {
+                                    noHintCheckbox.checked = true;
+                                    handleNoHintToggle();
+                                }
+                                
+                                if (savedImageData && savedImageName) {
+                                    displayUploadedImage(savedImageData, savedImageName, 0);
+                                }
+                            } catch (e) {
+                                console.error('Error loading saved data:', e);
+                            }
+                        }
+                        
+                        function handleHintInput() {
                             updateHintCounter();
-                        }
-                        
-                        if (savedNoHint === 'true') {
-                            noHintCheckbox.checked = true;
-                            handleNoHintToggle();
-                        }
-                        
-                        if (savedImageData && savedImageName) {
-                            displayUploadedImage(savedImageData, savedImageName, 0);
-                        }
-                    }
-                    
-                    function handleHintInput() {
-                        updateHintCounter();
-                        saveProgress();
-                        validateForm();
-                    }
-                    
-                    function updateHintCounter() {
-                        const length = hintTextarea.value.length;
-                        hintCounter.textContent = length;
-                        
-                        if (length > 150) {
-                            hintCounter.style.color = '#ef4444';
-                        } else if (length > 120) {
-                            hintCounter.style.color = '#f59e0b';
-                        } else {
-                            hintCounter.style.color = '#64748b';
-                        }
-                    }
-                    
-                    function handleNoHintToggle() {
-                        if (noHintCheckbox.checked) {
-                            hintTextarea.disabled = true;
-                            hintTextarea.style.opacity = '0.5';
-                        } else {
-                            hintTextarea.disabled = false;
-                            hintTextarea.style.opacity = '1';
-                        }
-                        saveProgress();
-                        validateForm();
-                    }
-                    
-                    function handleFileSelect(e) {
-                        const file = e.target.files[0];
-                        if (file) {
-                            processFile(file);
-                        }
-                    }
-                    
-                    function handleDragOver(e) {
-                        e.preventDefault();
-                        uploadArea.classList.add('drag-over');
-                    }
-                    
-                    function handleDragLeave(e) {
-                        e.preventDefault();
-                        uploadArea.classList.remove('drag-over');
-                    }
-                    
-                    function handleDrop(e) {
-                        e.preventDefault();
-                        uploadArea.classList.remove('drag-over');
-                        
-                        const files = e.dataTransfer.files;
-                        if (files.length > 0) {
-                            processFile(files[0]);
-                        }
-                    }
-                    
-                    function processFile(file) {
-                        // Validar tipo de archivo
-                        if (!file.type.match(/^image\/(jpeg|png|webp)$/)) {
-                            showUploadError('Formato no válido. Solo se permiten JPEG, PNG y WebP.');
-                            return;
-                        }
-                        
-                        // Validar tamaño
-                        if (file.size > 10 * 1024 * 1024) {
-                            showUploadError('El archivo es demasiado grande. Máximo 10 MB.');
-                            return;
-                        }
-                        
-                        // Leer archivo
-                        const reader = new FileReader();
-                        reader.onload = function(e) {
-                            displayUploadedImage(e.target.result, file.name, file.size);
-                            uploadedFile = file;
                             saveProgress();
                             validateForm();
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                    
-                    function displayUploadedImage(dataUrl, fileName, fileSize) {
-                        // Mostrar en preview principal
-                        const previewImg = document.getElementById('uploaded-image-preview');
-                        const defaultShapes = document.getElementById('default-shapes');
+                        }
                         
-                        previewImg.src = dataUrl;
-                        previewImg.style.display = 'block';
-                        defaultShapes.style.display = 'none';
+                        function updateHintCounter() {
+                            if (!hintTextarea || !hintCounter) return;
+                            const length = hintTextarea.value.length;
+                            hintCounter.textContent = length;
+                            
+                            if (length > 150) {
+                                hintCounter.style.color = '#ef4444';
+                            } else if (length > 120) {
+                                hintCounter.style.color = '#f59e0b';
+                            } else {
+                                hintCounter.style.color = '#64748b';
+                            }
+                        }
                         
-                        // Mostrar info del archivo
-                        document.getElementById('file-thumbnail').src = dataUrl;
-                        document.getElementById('file-name').textContent = fileName;
-                        document.getElementById('file-size').textContent = formatFileSize(fileSize);
+                        function handleNoHintToggle() {
+                            if (!noHintCheckbox || !hintTextarea) return;
+                            if (noHintCheckbox.checked) {
+                                hintTextarea.disabled = true;
+                                hintTextarea.style.opacity = '0.5';
+                            } else {
+                                hintTextarea.disabled = false;
+                                hintTextarea.style.opacity = '1';
+                            }
+                            saveProgress();
+                            validateForm();
+                        }
                         
-                        uploadContent.style.display = 'none';
-                        fileInfo.style.display = 'flex';
+                        function handleFileSelect(e) {
+                            const file = e.target.files[0];
+                            if (file) {
+                                processFile(file);
+                            }
+                        }
                         
-                        clearUploadError();
-                    }
-                    
-                    function removeFile() {
-                        uploadedFile = null;
+                        function handleDragOver(e) {
+                            e.preventDefault();
+                            uploadArea.classList.add('drag-over');
+                        }
                         
-                        // Ocultar preview
-                        document.getElementById('uploaded-image-preview').style.display = 'none';
-                        document.getElementById('default-shapes').style.display = 'flex';
+                        function handleDragLeave(e) {
+                            e.preventDefault();
+                            uploadArea.classList.remove('drag-over');
+                        }
                         
-                        // Mostrar upload area
-                        uploadContent.style.display = 'block';
-                        fileInfo.style.display = 'none';
+                        function handleDrop(e) {
+                            e.preventDefault();
+                            uploadArea.classList.remove('drag-over');
+                            
+                            const files = e.dataTransfer.files;
+                            if (files.length > 0) {
+                                processFile(files[0]);
+                            }
+                        }
                         
-                        // Reset input
-                        fileUpload.value = '';
-                        
-                        // Limpiar storage
-                        sessionStorage.removeItem('puzzleImageData');
-                        sessionStorage.removeItem('puzzleImageName');
-                        
-                        validateForm();
-                    }
-                    
-                    function showUploadError(message) {
-                        uploadFeedback.textContent = message;
-                        uploadFeedback.className = 'upload-feedback error';
-                        uploadFeedback.style.display = 'block';
-                    }
-                    
-                    function clearUploadError() {
-                        uploadFeedback.style.display = 'none';
-                    }
-                    
-                    function formatFileSize(bytes) {
-                        if (bytes === 0) return '0 B';
-                        const k = 1024;
-                        const sizes = ['B', 'KB', 'MB'];
-                        const i = Math.floor(Math.log(bytes) / Math.log(k));
-                        return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
-                    }
-                    
-                    function validateForm() {
-                        const hasImage = uploadedFile !== null || sessionStorage.getItem('puzzleImageData');
-                        const hasValidHint = noHintCheckbox.checked || (hintTextarea.value.trim().length >= 5 && hintTextarea.value.length <= 150);
-                        
-                        nextBtn.disabled = !(hasImage && hasValidHint);
-                    }
-                    
-                    function saveProgress() {
-                        sessionStorage.setItem('puzzleHint', hintTextarea.value);
-                        sessionStorage.setItem('puzzleNoHint', noHintCheckbox.checked);
-                        
-                        if (uploadedFile) {
+                        function processFile(file) {
+                            if (!file.type.match(/^image\/(jpeg|png|webp)$/)) {
+                                showUploadError('Formato no válido. Solo se permiten JPEG, PNG y WebP.');
+                                return;
+                            }
+                            
+                            if (file.size > 10 * 1024 * 1024) {
+                                showUploadError('El archivo es demasiado grande. Máximo 10 MB.');
+                                return;
+                            }
+                            
                             const reader = new FileReader();
                             reader.onload = function(e) {
-                                sessionStorage.setItem('puzzleImageData', e.target.result);
-                                sessionStorage.setItem('puzzleImageName', uploadedFile.name);
+                                displayUploadedImage(e.target.result, file.name, file.size);
+                                uploadedFile = file;
+                                saveProgress();
+                                validateForm();
                             };
-                            reader.readAsDataURL(uploadedFile);
+                            reader.readAsDataURL(file);
                         }
+                        
+                        function displayUploadedImage(dataUrl, fileName, fileSize) {
+                            const previewImg = document.getElementById('uploaded-image-preview');
+                            const defaultShapes = document.getElementById('default-shapes');
+                            
+                            if (previewImg) {
+                                previewImg.src = dataUrl;
+                                previewImg.style.display = 'block';
+                            }
+                            if (defaultShapes) defaultShapes.style.display = 'none';
+                            
+                            const thumbnail = document.getElementById('file-thumbnail');
+                            const nameEl = document.getElementById('file-name');
+                            const sizeEl = document.getElementById('file-size');
+                            
+                            if (thumbnail) thumbnail.src = dataUrl;
+                            if (nameEl) nameEl.textContent = fileName;
+                            if (sizeEl) sizeEl.textContent = formatFileSize(fileSize);
+                            
+                            if (uploadContent) uploadContent.style.display = 'none';
+                            if (fileInfo) fileInfo.style.display = 'flex';
+                            
+                            clearUploadError();
+                        }
+                        
+                        function removeFile() {
+                            uploadedFile = null;
+                            
+                            const previewImg = document.getElementById('uploaded-image-preview');
+                            const defaultShapes = document.getElementById('default-shapes');
+                            if (previewImg) previewImg.style.display = 'none';
+                            if (defaultShapes) defaultShapes.style.display = 'flex';
+                            
+                            if (uploadContent) uploadContent.style.display = 'block';
+                            if (fileInfo) fileInfo.style.display = 'none';
+                            
+                            if (fileUpload) fileUpload.value = '';
+                            
+                            try {
+                                sessionStorage.removeItem('puzzleImageData');
+                                sessionStorage.removeItem('puzzleImageName');
+                            } catch (e) {
+                                console.error('Error removing image data:', e);
+                            }
+                            
+                            validateForm();
+                        }
+                        
+                        function showUploadError(message) {
+                            if (uploadFeedback) {
+                                uploadFeedback.textContent = message;
+                                uploadFeedback.className = 'upload-feedback error';
+                                uploadFeedback.style.display = 'block';
+                            }
+                        }
+                        
+                        function clearUploadError() {
+                            if (uploadFeedback) uploadFeedback.style.display = 'none';
+                        }
+                        
+                        function formatFileSize(bytes) {
+                            if (bytes === 0) return '0 B';
+                            const k = 1024;
+                            const sizes = ['B', 'KB', 'MB'];
+                            const i = Math.floor(Math.log(bytes) / Math.log(k));
+                            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+                        }
+                        
+                        function validateForm() {
+                            const hasImage = uploadedFile !== null || (function() {
+                                try {
+                                    return sessionStorage.getItem('puzzleImageData') !== null;
+                                } catch (e) {
+                                    return false;
+                                }
+                            })();
+                            
+                            const hasValidHint = (noHintCheckbox && noHintCheckbox.checked) || 
+                                               (hintTextarea && hintTextarea.value.trim().length >= 5 && hintTextarea.value.length <= 150);
+                            
+                            if (nextBtn) nextBtn.disabled = !(hasImage && hasValidHint);
+                        }
+                        
+                        function saveProgress() {
+                            try {
+                                if (hintTextarea) sessionStorage.setItem('puzzleHint', hintTextarea.value);
+                                if (noHintCheckbox) sessionStorage.setItem('puzzleNoHint', noHintCheckbox.checked);
+                                
+                                if (uploadedFile) {
+                                    const reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        try {
+                                            sessionStorage.setItem('puzzleImageData', e.target.result);
+                                            sessionStorage.setItem('puzzleImageName', uploadedFile.name);
+                                        } catch (err) {
+                                            console.error('Error saving image data:', err);
+                                        }
+                                    };
+                                    reader.readAsDataURL(uploadedFile);
+                                }
+                            } catch (e) {
+                                console.error('Error saving progress:', e);
+                            }
+                        }
+                        
+                        function handleFormSubmit(e) {
+                            e.preventDefault();
+
+                            try {
+                                if (hintTextarea) sessionStorage.setItem('puzzleHint', hintTextarea.value);
+                                if (noHintCheckbox) sessionStorage.setItem('puzzleNoHint', noHintCheckbox.checked);
+                            } catch (err) {
+                                console.error('Error saving form data:', err);
+                            }
+
+                            window.location.href = '/Previewquestion';
+                        }
+                        
+                        validateForm();
+                    };
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', initializeForm);
+                    } else {
+                        setTimeout(initializeForm, 0);
                     }
-                    
-                    function handleFormSubmit(e) {
-                    e.preventDefault();
-
-                    // Validar y guardar datos en sessionStorage
-                    sessionStorage.setItem('puzzleHint', hintTextarea.value);
-                    sessionStorage.setItem('puzzleNoHint', noHintCheckbox.checked);
-
-                    // Redirigir a la siguiente página directamente
-                    window.location.href = '/Previewquestion';
-                    }
-
-                    
-                    // Validación inicial
-                    validateForm();
-                });
+                })();
             </script>
         </body>
     |]
