@@ -5,7 +5,7 @@ QuizFusion es una aplicación fullstack para la gestión de preguntas interactiv
 
 ## 👨‍💻 Autor
 * **Michael Asencio Quintana**
-* **Calixto Mamani Quispe**
+
 
 ## 📘 Información académica
 * **Materia:** Programación Web
