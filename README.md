@@ -49,9 +49,9 @@ quizfusion/
 ```
 
 ## 🚀 Características principales
-* Creación y gestión de cuestionarios interactivos
-* Participación en tiempo real mediante websockets
-* Análisis de resultados y estadísticas
+* Creación y gestión de cuestionarios interactivos en base a imagenes y puzztle
+* Se puede jugar mediante comandos de programacion interactivos
+* Análisis de resultados y guarda las preguntas en la base de datos
 * Interfaz intuitiva con diseño responsive
 * Autenticación y autorización de usuarios
 * Persistencia de datos en PostgreSQL
