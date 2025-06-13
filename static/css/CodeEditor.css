@@ -170,11 +170,38 @@
 
 .code-canvas {
   min-height: 280px;
+  max-height: 400px; 
   background: #f9fafb;
   border: 2px dashed #d1d5db;
   border-radius: 8px;
   padding: 16px;
   position: relative;
+  overflow-y: auto; 
+  overflow-x: hidden; 
+}
+
+.code-canvas::-webkit-scrollbar {
+  width: 6px;
+}
+
+.code-canvas::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.code-canvas::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.code-canvas::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Para Firefox */
+.code-canvas {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 #f1f5f9;
 }
 
 .code-placeholder {
