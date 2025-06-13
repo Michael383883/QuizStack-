@@ -217,11 +217,11 @@ instance View PreviewquestionView where
                                     </button>
                                     
                                     <button type="button" class="preview-button" id="test-puzzle-btn">
-                                        🎮 Probar puzzle
+                                        🎮 Crear puzzle Personalizado
                                     </button>
                                     
                                     <button type="button" class="finish-button" id="publish-btn" disabled>
-                                        ✨ Publicar puzzle
+                                        ✨ Crear puzzle Automatico
                                     </button>
                                 </div>
                                 
@@ -876,7 +876,6 @@ instance View PreviewquestionView where
                             detail.textContent = validation.message;
                         });
                     }
-                    
                     function testPuzzle() {
                         if (puzzleData.imageData && detectedCountries.length > 0) {
                             // Crear datos de prueba del puzzle
@@ -888,15 +887,13 @@ instance View PreviewquestionView where
                             
                             sessionStorage.setItem('testPuzzleData', JSON.stringify(testData));
                             
-                            // Abrir en nueva ventana para prueba
-                            const testWindow = window.open('/PuzzleTest/Play', '_blank', 'width=1000,height=800');
-                            if (!testWindow) {
-                                alert(' Función de prueba: El puzzle se abriría en una nueva ventana para que puedas probarlo antes de publicar. Asegúrate de permitir pop-ups.');
-                            }
+                            // Redireccionar directamente a /MapEditor
+                            window.location.href = '/MapEditor';
                         } else {
-                            alert(' Necesitas cargar un mapa y que se detecten países antes de poder probar el puzzle.');
+                            alert('Necesitas cargar un mapa y que se detecten países antes de poder probar el puzzle.');
                         }
                     }
+
                     
                     function showPublishOptions() {
                         document.getElementById('publish-options').style.display = 'block';
