@@ -26,3 +26,18 @@ CREATE TABLE questions (
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
 );
+
+CREATE TABLE map_configs (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY NOT NULL,
+    name TEXT NOT NULL,
+    width INTEGER NOT NULL,
+    height INTEGER NOT NULL,
+    cell_size INTEGER NOT NULL,
+    start_pos_x INTEGER NOT NULL,
+    start_pos_y INTEGER NOT NULL,
+    goal_pos_x INTEGER NOT NULL,
+    goal_pos_y INTEGER NOT NULL,
+    config_data JSONB NOT NULL, 
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW() NOT NULL
+);
