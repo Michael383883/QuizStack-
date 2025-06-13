@@ -49,12 +49,17 @@ quizfusion/
 ```
 
 ## 🚀 Características principales
+* * El enfoque esta en resolver preguntas  de geografia jugando al puzztle
 * Creación y gestión de cuestionarios interactivos en base a imagenes y puzztle
 * Se puede jugar mediante comandos de programacion interactivos
 * Análisis de resultados y guarda las preguntas en la base de datos
 * Interfaz intuitiva con diseño responsive
 * Autenticación y autorización de usuarios
 * Persistencia de datos en PostgreSQL
+* Puedes crear tu propio puzztle personalizado
+* Puedes generar tu puztle automatico
+
+
 
 ## 🚧 Estado del proyecto
 🔧 En desarrollo – funcionalidades básicas en construcción.
