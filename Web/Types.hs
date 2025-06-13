@@ -27,6 +27,8 @@ data CreateQuestionController
     | NewCuestiontwoAction
     | PreviewquestionAction
     | PuzzleResolutionAction
+    | MapEditorAction
+    | CreateQuestionStepOneAction
     
     
     deriving (Eq, Show, Data)
