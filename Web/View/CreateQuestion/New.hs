@@ -2,11 +2,14 @@ module Web.View.CreateQuestion.New where
 
 import Web.View.Prelude
 import Web.View.Components.Navigation (renderNavigation)
+import qualified Data.Text as Text
+import Data.Time.Format (formatTime, defaultTimeLocale)
 
 data NewView = NewView
+    { questions :: [Question] }
 
 instance View NewView where
-    html NewView = [hsx|
+    html NewView { .. } = [hsx|
         <head>
             <link rel="stylesheet" href="/css/create-question.css" />
             <title>Crea tu Puzzle Educativo - QuizZZite</title>
@@ -26,6 +29,14 @@ instance View NewView where
                                 <span class="step active">1</span>
                                 <span class="step">2</span>
                                 <span class="step">3</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Sección para mostrar preguntas existentes -->
+                        <div class="existing-questions-section">
+                            <h2 class="section-title">Preguntas Creadas</h2>
+                            <div class="questions-grid">
+                                {forEach questions renderQuestion}
                             </div>
                         </div>
                         
@@ -56,7 +67,7 @@ instance View NewView where
                                 </div>
                             </div>
                             
-                            <form id="step1-form" class="form-container">
+                            <form id="step1-form" class="form-container" method="POST" action={CreateQuestionStepOneAction}>
                                 <div class="form-group">
                                     <label for="question" class="form-label">¿Cuál será la pregunta a resolver?</label>
                                     <input 
@@ -122,7 +133,7 @@ instance View NewView where
                         3: 'Desafío avanzado - Muchas piezas, máxima dificultad'
                     };
                     
-                    // Cargar datos guardados si existen
+                    // Cargar datos guardados (opcional, para mantener la funcionalidad existente)
                     const savedQuestion = sessionStorage.getItem('puzzleQuestion');
                     const savedDifficulty = sessionStorage.getItem('puzzleDifficulty');
                     
@@ -136,7 +147,7 @@ instance View NewView where
                         updateDifficultyDisplay();
                     }
                     
-                    // Validación en tiempo real
+                    // Event listeners
                     questionInput.addEventListener('input', function() {
                         validateForm();
                         saveProgress();
@@ -186,13 +197,16 @@ instance View NewView where
                     
                     // Manejar envío del formulario
                     form.addEventListener('submit', function(e) {
-                        e.preventDefault();
-                        
-                        if (!nextBtn.disabled) {
-                            saveProgress();
-                            // Redireccionar al paso 2
-                            window.location.href = '/NewCuestiontwo';
+                        if (nextBtn.disabled) {
+                            e.preventDefault(); // Solo prevenir si el botón está deshabilitado
+                            return;
                         }
+                        
+                        // Guardar en sessionStorage como respaldo
+                        saveProgress();
+                        
+                        // El formulario se enviará normalmente al servidor
+                        // No usar preventDefault() aquí para permitir el envío
                     });
                     
                     // Inicializar display
@@ -202,4 +216,22 @@ instance View NewView where
         </body>
     |]
 
+renderQuestion :: Question -> Html
+renderQuestion question = [hsx|
+   
+|]
 
+renderQuestionImage :: Question -> Html
+renderQuestionImage question = 
+    case get #image question of
+        Just imagePath -> [hsx|<div class="question-image"><img src={imagePath} alt="Imagen de la pregunta" /></div>|]
+        Nothing -> [hsx|<div class="question-no-image">Sin imagen</div>|]
+
+editQuestionJs :: Id Question -> Text
+editQuestionJs questionId = "editQuestion('" <> tshow questionId <> "')"
+
+useQuestionJs :: Id Question -> Text  
+useQuestionJs questionId = "useQuestion('" <> tshow questionId <> "')"
+
+formatDate :: UTCTime -> Text
+formatDate utcTime = Text.pack $ formatTime defaultTimeLocale "%d/%m/%Y" utcTime
