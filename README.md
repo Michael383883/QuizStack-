@@ -1,71 +1,256 @@
-# IHP Project
+# QuizStack
 
-This is an IHP (Integrated Haskell Platform) project with GitHub Actions for testing and deployment. For more information about IHP, see the [IHP Documentation](https://ihp.digitallyinduced.com/Guide/).
+QuizStack es una aplicación fullstack para la gestión de preguntas interactivas en tiempo real. Desarrollada como parte del curso de Programación Web, combina tecnologías modernas para ofrecer una experiencia ágil y dinámica en un entorno completamente basado en IHP.
 
-## GitHub Actions Workflow
+## 👨‍💻 Autor
+* **Michael Asencio Quintana**
 
-This project includes a GitHub Actions workflow for automated testing and deployment. The workflow is defined in `.github/workflows/test.yml`.
+## 📘 Información académica
+* **Materia:** Programación Web
+* **Gestión:** 2025
 
-### Workflow Triggers
+## 💻 Stack tecnológico
+* **Frontend:** IHP (Framework Haskell para desarrollo web fullstack)
+* **Backend:** IHP
+* **Base de datos:** PostgreSQL
+* **Lenguaje de programación:** Haskell
 
-The workflow is triggered on:
-- Push to the `main` branch
-- Pull requests to the `main` branch
-- Manual trigger from the GitHub Actions tab
+## 🌟 ¿Por qué IHP?
+IHP es un moderno framework web en Haskell que permite un desarrollo rápido y tipo seguro, con características como:
+- Generación automática de código
+- Hot reloading
+- Sistema de consultas tipo seguro
+- Vistas con sintaxis HSX (similar a JSX)
+- Sistema integrado de autenticación
+- Migraciones automáticas de base de datos
 
-### Testing
+## 📁 Estructura del Proyecto
 
-The testing job performs the following steps:
-1. Checks out the code
-2. Sets up Nix
-3. Initializes Cachix for faster builds
-4. Installs and allows direnv
-5. Builds generated files
-6. Starts the project in the background
-7. Runs the tests
 
-### Deployment
 
-For deployment, follow the [IHP Deployment Guide](https://ihp.digitallyinduced.com/Guide/deployment.html#deploying-with-deploytonixos) to set up a proper NixOS server for your project.
+```
+quizfusion/
+├── Application/
+│   ├── Helper/
+│   └── Schema.sql
+├── Config/
+├── Controller/
+├── Model/
+├── View/
+├── Web/
+│   ├── Controller/
+│   ├── View/
+│   ├── Routes.hs
+│   └── Types.hs
+├── .gitignore
+├── package.json
+├── default.nix
+└── README.md
+```
 
-The deployment job runs after successful tests and only for the `main` branch. It performs the following steps:
-1. Checks out the code
-2. Sets up SSH for deployment
-3. Sets up Nix
-4. Initializes Cachix
-5. Sets up direnv
-6. Deploys to a NixOS server
 
-## Setup Instructions
+## 🚀 Características principales
+* El enfoque está en resolver preguntas de geografía jugando al puzzle
+* Creación y gestión de cuestionarios interactivos basados en imágenes y puzzles
+* Se puede jugar mediante comandos de programación interactivos
+* Análisis de resultados y guardado de preguntas en la base de datos
+* Interfaz intuitiva con diseño responsive
+* Autenticación y autorización de usuarios
+* Persistencia de datos en PostgreSQL
+* Puedes crear tu propio puzzle personalizado
+* Puedes generar tu puzzle automáticamente
 
-To use the GitHub Actions workflow in this project:
+## 🚧 Estado del proyecto
+🔧 En desarrollo – funcionalidades básicas en construcción.
 
-1. Set up the following secrets in your GitHub [repository settings](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions):
-   - `SSH_HOST`: The hostname or IP address of your deployment server
-   - `SSH_USER`: The username for SSH access to the deployment server
-   - `SSH_PRIVATE_KEY`: The private SSH key for authentication
+## 📋 Requisitos previos
+* [Nix](https://nixos.org/download.html) (gestor de paquetes)
+* [IHP](https://ihp.digitallyinduced.com/Guide/installation.html)
+* PostgreSQL (versión 13 o superior)
+* [Haskell Stack](https://docs.haskellstack.org/en/stable/install_and_upgrade/)
 
-2. Modify the `env` section in `.github/workflows/test.yml` if needed:
-   - Update `PROJECT_NAME` to match your project
-   - Adjust `ENV` if you want to use a different environment name
-   - Update `NIXPKGS` if you want to use a different Nixpkgs version
+### Para Windows
 
-3. Ensure your project has the necessary test files in the `Test` directory.
+* **Nix Package Manager**:
+  * Instala WSL2 (Windows Subsystem for Linux) siguiendo [la guía oficial de Microsoft](https://learn.microsoft.com/es-es/windows/wsl/install)
+  * Una vez instalado WSL2, abre una terminal de Linux y ejecuta:
+    ```bash
+    sh <(curl -L https://nixos.org/nix/install) --daemon
+    ```
 
-4. If your deployment process differs, modify the `deploy` job in the workflow file accordingly.
+* **PostgreSQL**:
+  * Descarga el instalador desde [la página oficial de PostgreSQL](https://www.postgresql.org/download/windows/)
+  * Instala la versión 13 o superior
+  * Asegúrate de anotar la contraseña del usuario postgres durante la instalación
 
-5. Push your changes to the `main` branch to trigger the workflow.
+* **Haskell Stack**:
+  * Descarga el instalador desde [la página oficial de Haskell Stack](https://docs.haskellstack.org/en/stable/install_and_upgrade/#windows)
+  * Sigue las instrucciones de instalación
 
-## Manual Workflow Trigger
+* **IHP Framework**:
+  * En WSL2, ejecuta:
+    ```bash
+    nix-env -if https://ihp.digitallyinduced.com/ihp-new.tar.gz
+    ```
 
-You can manually trigger the workflow from the Actions tab in your GitHub repository. This is useful for running tests or deploying without pushing changes.
+### Para macOS
 
-## Customization
+* **Nix Package Manager**:
+  * Abre Terminal y ejecuta:
+    ```bash
+    sh <(curl -L https://nixos.org/nix/install)
+    ```
+  * Cierra y vuelve a abrir Terminal después de la instalación
 
-Feel free to customize the workflow file to fit your specific project needs. You may want to add additional steps, change the deployment process, or modify the testing procedure.
+* **PostgreSQL**:
+  * Usando Homebrew (instálalo primero desde [brew.sh](https://brew.sh/)):
+    ```bash
+    brew install postgresql@13
+    brew services start postgresql@13
+    ```
 
-## Support
+* **Haskell Stack**:
+  * Usando Homebrew:
+    ```bash
+    brew install haskell-stack
+    ```
 
-For issues related to IHP or this project's setup, please refer to the [IHP documentation](https://ihp.digitallyinduced.com/Guide/) or seek help on the [IHP Forum](https://ihp.digitallyinduced.com/community/).
+* **IHP Framework**:
+  * Ejecuta:
+    ```bash
+    nix-env -if https://ihp.digitallyinduced.com/ihp-new.tar.gz
+    ```
 
-For project-specific issues, please open an issue in this repository.
+### Para Linux (Ubuntu/Debian)
+
+* **Nix Package Manager**:
+  * Ejecuta:
+    ```bash
+    sh <(curl -L https://nixos.org/nix/install) --daemon
+    ```
+
+* **PostgreSQL**:
+  * Instala PostgreSQL:
+    ```bash
+    sudo apt update
+    sudo apt install postgresql postgresql-contrib
+    sudo systemctl enable postgresql
+    sudo systemctl start postgresql
+    ```
+
+* **Haskell Stack**:
+  * Ejecuta:
+    ```bash
+    curl -sSL https://get.haskellstack.org/ | sh
+    ```
+
+* **IHP Framework**:
+  * Ejecuta:
+    ```bash
+    nix-env -if https://ihp.digitallyinduced.com/ihp-new.tar.gz
+    ```
+
+## ⚙️ Configuración del entorno
+
+### Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/Michael383883/QuizStack-.git
+   cd QuizStack-/
+
+
+
+2. Configuración de la base de datos:
+   
+   **Windows (PostgreSQL)**:
+   ```bash
+   # Accede a PostgreSQL como administrador
+   psql -U postgres
+   CREATE USER quizstack WITH PASSWORD 'contraseña';
+   CREATE DATABASE quizstack_db OWNER quizstack;
+   \q
+   ```
+
+   **macOS/Linux**:
+   ```bash
+   # Accede a PostgreSQL como superusuario
+   sudo -u postgres psql
+   CREATE USER quizstack WITH PASSWORD 'contraseña';
+   CREATE DATABASE quizstack_db OWNER quizstack;
+   \q
+   ```
+
+3. Configuración del proyecto IHP:
+   ```bash
+   ./start
+   ```
+   Este comando iniciará el servidor de desarrollo, configurará la base de datos y abrirá la aplicación en tu navegador predeterminado.
+
+4. La aplicación estará disponible en: http://localhost:8000
+
+## 🌿 Flujo de trabajo Git
+
+### Ramas principales
+* `main`: Código en producción estable. NO se permite pushear directamente a esta rama. Actualmente todo esta hay
+* `develop`: Rama de desarrollo integrado. Todo el desarrollo se fusiona aquí antes de pasar a producción.
+
+### Ramas de trabajo
+* `feature/nombre-caracteristica`: Para nuevas características o mejoras.
+* `bugfix/nombre-error`: Para corrección de errores.
+* `hotfix/nombre-urgencia`: Para correcciones urgentes que van directamente a producción.
+* `release/v1.x.x`: Para preparar una nueva versión para producción.
+
+### Convenciones de commits
+Todos los commits deben seguir el formato:
+
+```
+tipo(alcance): breve descripción
+
+Descripción más detallada si es necesaria
+```
+
+Donde `tipo` puede ser:
+- `feat`: Nueva característica
+- `fix`: Corrección de error
+- `docs`: Cambios en la documentación
+- `style`: Cambios de formato (indentación, etc.)
+- `refactor`: Refactorización de código
+- `test`: Añadir o modificar pruebas
+- `chore`: Tareas de mantenimiento
+
+### Reglas de contribución
+1. **No pushear directamente a `main` o `develop`.**
+2. Crear una rama específica desde `develop` para cada tarea.
+3. Los commits deben seguir la convención establecida.
+4. Mantener las ramas actualizadas con `develop` mediante rebase.
+5. Todo merge a `develop` o `main` requiere una revisión de código.
+6. Asegurarse de que el código pasa todas las pruebas antes de solicitar un merge.
+
+## 🤝 ¿Cómo contribuir?
+1. Clona el repositorio.
+2. Crea una rama desde `develop` con el formato adecuado.
+3. Realiza tus cambios siguiendo las convenciones de código.
+4. Ejecuta las pruebas localmente.
+5. Sube tus cambios y crea un Pull Request hacia `develop`.
+6. Espera la revisión y aprobación.
+
+## 📚 Recursos de aprendizaje
+- [Documentación oficial de IHP](https://ihp.digitallyinduced.com/Guide/)
+- [Aprende Haskell](https://learnyouahaskell.com/)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
+
+## 🐛 Reporte de errores
+Si encuentras algún error, por favor reportalo creando un issue en este repositorio con la siguiente información:
+- Breve descripción del problema
+- Pasos para reproducir el error
+- Comportamiento esperado
+- Comportamiento actual
+- Capturas de pantalla (si aplica)
+
+## 📄 Licencia
+Este proyecto está bajo la Licencia MIT. Ver el archivo [LICENSE](LICENSE) para más detalles.
+
+---
+
+⭐️ Si te gusta este proyecto, ¡no dudes en darle una estrella!
